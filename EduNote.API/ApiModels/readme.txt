@@ -1,1 +1,0 @@
-﻿Hier komen de modelen te staan die door de api worden geconsumeerd/verstuurd

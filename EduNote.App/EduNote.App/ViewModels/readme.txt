@@ -1,0 +1,1 @@
+﻿Optioneel voor de MVVM structuur
