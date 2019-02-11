@@ -1,0 +1,1 @@
+﻿Hier komen helper classes die bijvoorbeeld apparte berekeningen etc. doen

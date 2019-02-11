@@ -217,10 +217,19 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Factories\readme.txt" />
+    <None Include="Helpers\readme.txt" />
+    <None Include="Models\readme.txt" />
+    <None Include="Repositories\readme.txt" />
+    <None Include="ApiModels\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="ApiModels\" />
+    <Folder Include="Factories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
