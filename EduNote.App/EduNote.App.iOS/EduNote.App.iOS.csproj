@@ -153,7 +153,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\EduNote.App\EduNote.App.csproj">
-      <Project>{885E6CEE-3B36-4B1E-B5F4-CFC8E4F9CCB9}</Project>
+      <Project>{1E1773F3-7F06-4BC2-913A-55DD7B74EA44}</Project>
       <Name>EduNote.App</Name>
     </ProjectReference>
   </ItemGroup>
