@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace EduNote.API.Database
 {
     public class Group
     {
-        public int GroupID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<User> Users { get; set; }
-        public ICollection<Section> AllowedSections { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Section> AllowedSections { get; set; }
     }
 }

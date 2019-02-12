@@ -16,7 +16,8 @@ namespace EduNote.API.Database
             : base("name=EduNoteContext")
         {
 
-            Database.SetInitializer(new EduNoteInitializer());
+            //Database.SetInitializer(new EduNoteInitializer());
+            Database.SetInitializer(new DropCreateDatabaseAlways<EduNoteContext>());
         }
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
