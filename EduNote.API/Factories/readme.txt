@@ -1,1 +1,0 @@
-﻿Hier worden database modelen omgezet naar api modelen
