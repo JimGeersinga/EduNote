@@ -28,9 +28,8 @@ namespace EduNote.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = @"Server=127.0.0.1;User ID=root;Password=qwaszx;Database=EduNote;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<EduNoteContext>
-                (options => options.UseSqlServer(connection));
+                (options => options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
