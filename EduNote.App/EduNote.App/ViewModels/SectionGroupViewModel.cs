@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Autofac;
+﻿using Autofac;
 using EduNote.App.Services;
+using System.Collections.ObjectModel;
 
 namespace EduNote.App.ViewModels
 {
@@ -10,18 +9,14 @@ namespace EduNote.App.ViewModels
         public SectionGroupViewModel(string _title = "Default")
         {
             Title = _title;
-            var sectionService = App.Container.Resolve<ISectionService>();
-            Sections = new ObservableCollection<SectionViewModel>(sectionService.FindForSectionGroup(1)) ;
+            ISectionService sectionService = App.Container.Resolve<ISectionService>();
+            Sections = new ObservableCollection<SectionViewModel>(sectionService.FindForSectionGroup(1));
         }
 
-        string title;
+        private string title;
         public string Title
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(title) ? "Null" : title;
-
-            }
+            get => string.IsNullOrWhiteSpace(title) ? "Null" : title;
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -36,7 +31,7 @@ namespace EduNote.App.ViewModels
         private ObservableCollection<SectionViewModel> sections { get; set; }
         public ObservableCollection<SectionViewModel> Sections
         {
-            get { return sections; }
+            get => sections;
             set
             {
                 sections = value;

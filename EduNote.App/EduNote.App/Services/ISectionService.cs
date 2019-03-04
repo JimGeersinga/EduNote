@@ -1,6 +1,5 @@
-﻿using System;
+﻿using EduNote.App.ViewModels;
 using System.Collections.Generic;
-using EduNote.App.ViewModels;
 
 namespace EduNote.App.Services
 {
@@ -8,8 +7,5 @@ namespace EduNote.App.Services
     {
         IEnumerable<SectionViewModel> FindForSectionGroup(int id);
         SectionViewModel Get(int id);
-
-
-
     }
 }

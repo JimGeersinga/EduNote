@@ -1,5 +1,4 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using EduNote.App.Pages;
 using EduNote.App.Services;
 using Xamarin.Forms;
@@ -13,13 +12,11 @@ namespace EduNote.App
         public static IContainer Container { get; set; }
         public App()
         {
+            InitializeIOCContainer();
             InitializeComponent();
             MainPage = new SectionGroupPage();
         }
-        static App()
-        {
-            InitializeIOCContainer();
-        }
+
         protected override void OnStart()
         {
             // Handle when your app starts
@@ -34,9 +31,9 @@ namespace EduNote.App
         {
             // Handle when your app resumes
         }
-        private static void InitializeIOCContainer()
+        private void InitializeIOCContainer()
         {
-            var builder = new ContainerBuilder();
+            ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterType<MockSectionGroupService>().As<ISectionGroupService>().SingleInstance();
             builder.RegisterType<MockSectionService>().As<ISectionService>().SingleInstance();
             Container = builder.Build();

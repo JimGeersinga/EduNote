@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Autofac;
+﻿using Autofac;
 using EduNote.App.Services;
 using EduNote.App.ViewModels;
 using Xamarin.Forms;
@@ -11,13 +9,10 @@ namespace EduNote.App.Pages
     {
         public SectionGroupPage()
         {
-
             InitializeComponent();
-            var s = EduNote.App.App.Container.Resolve<ISectionGroupService>();
-            var vm = s.Get(1);
-            BindingContext = vm;
-
-
+            ISectionGroupService s = EduNote.App.App.Container.Resolve<ISectionGroupService>();
+            SectionGroupViewModel vm = s.Get(1);
+            BindingContext = vm;            
         }
     }
 }

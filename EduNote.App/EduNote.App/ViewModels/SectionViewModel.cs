@@ -1,5 +1,4 @@
-﻿using System;
-namespace EduNote.App.ViewModels
+﻿namespace EduNote.App.ViewModels
 {
     public class SectionViewModel : BaseViewModel
     {

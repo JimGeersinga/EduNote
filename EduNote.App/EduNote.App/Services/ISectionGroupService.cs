@@ -1,6 +1,5 @@
-﻿using System;
+﻿using EduNote.App.ViewModels;
 using System.Collections.Generic;
-using EduNote.App.ViewModels;
 
 namespace EduNote.App.Services
 {
