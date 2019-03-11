@@ -19,4 +19,7 @@
     <Folder Include="Pages\" />
     <Folder Include="Components\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EduNote.API.Shared\EduNote.API.Shared.csproj" />
+  </ItemGroup>
 </Project>

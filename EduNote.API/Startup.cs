@@ -1,4 +1,5 @@
-﻿using EduNote.API.Database;
+﻿using AutoMapper;
+using EduNote.API.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace EduNote.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper();
             services.AddDbContext<EduNoteContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase")));
 
