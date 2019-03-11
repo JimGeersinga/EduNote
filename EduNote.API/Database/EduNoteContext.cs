@@ -1,6 +1,7 @@
 ﻿using System;
 using EduNote.API.Models;
 using Microsoft.EntityFrameworkCore;
+using EduNote.API.Shared.ApiModels;
 
 namespace EduNote.API.Database
 {
@@ -116,6 +117,9 @@ namespace EduNote.API.Database
                 .WithMany(g => g.QuestionTags)
                 .HasForeignKey(qt => qt.TagId);
             #endregion QuestionTags
+
+            modelBuilder.Entity<User>()
+                .HasData(new User() {Id = 1, FirstName = "Jim", LastName = "Geersinga", Email = "j.geersinga@outlook.com" });
         }
     }
 }

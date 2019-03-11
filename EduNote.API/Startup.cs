@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EduNote.API.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using EduNote.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -67,8 +68,13 @@ namespace EduNote.API
             // The recommendation is to use AsyncScopedLifestyle in for applications that solely consist of a Web API(or other asynchronous technologies such as ASP.NET Core)
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
+            // Register database
+            var optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
+            container.Register(() => new EduNoteContext(optionsBuilder.Options), Lifestyle.Scoped);
+
             // Register services
-            //cont  ainer.Register<IHelloWorldService, HelloWorldService>(Lifestyle.Scoped); // lifestyle can set here, sometimes you want to change the default lifestyle like singleton exeptionally
+            container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
 
             // Register controllers DI resolution
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
@@ -103,13 +109,13 @@ namespace EduNote.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "EduNote API V1");
                 c.RoutePrefix = string.Empty;
             });
-
-            app.UseMvc();
-
+            
             container.RegisterMvcControllers(app);
 
             // Verify Simple Injector configuration
             container.Verify();
+
+            app.UseMvc();
         }
     }
 }

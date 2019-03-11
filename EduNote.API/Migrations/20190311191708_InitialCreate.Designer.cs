@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduNote.API.Migrations
 {
     [DbContext(typeof(EduNoteContext))]
-    [Migration("20190304172350_InitialCreate")]
+    [Migration("20190311191708_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -203,6 +203,8 @@ namespace EduNote.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
@@ -210,6 +212,10 @@ namespace EduNote.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, Email = "j.geersinga@outlook.com", FirstName = "Jim", LastName = "Geersinga" }
+                    );
                 });
 
             modelBuilder.Entity("EduNote.API.Models.UserGroups", b =>
