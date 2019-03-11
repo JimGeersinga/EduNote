@@ -1,6 +1,7 @@
 ﻿using System;
 using EduNote.API.Models;
 using Microsoft.EntityFrameworkCore;
+using EduNote.API.Shared.ApiModels;
 
 namespace EduNote.API.Database
 {

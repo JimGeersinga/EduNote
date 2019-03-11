@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EduNote.API.Database;
+using EduNote.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,8 @@ namespace EduNote.API
 
             // Register services
             //container.Register<IHelloWorldService, HelloWorldService>(Lifestyle.Scoped); // lifestyle can set here, sometimes you want to change the default lifestyle like singleton exeptionally
+            
+            container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
 
             // Register controllers DI resolution
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
@@ -83,6 +86,7 @@ namespace EduNote.API
 
             app.UseHttpsRedirection();
 
+            container.Register(() => app.GetRequestService<EduNoteContext>(), Lifestyle.Singleton);
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
