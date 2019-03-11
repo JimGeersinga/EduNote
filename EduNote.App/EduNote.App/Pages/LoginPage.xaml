@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:behaviors="clr-namespace:EduNote.App.Behaviours;assembly=EduNote.App"
+    x:Class="EduNote.App.Pages.LoginPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Text="{Binding UserName.Value, Mode = TwoWay}" Style="{StaticResource EntryStyle}" TextColor="{Binding UserNameColor}">
+                <Entry.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="TextChanged"
+                            Command="{Binding ValidateUserNameCommand}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger 
+                            TargetType="Entry"
+                            Binding="{Binding UserName.IsValid}"
+                            Value="False">
+                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="Red" />
+                        </DataTrigger>
+                    </Entry.Triggers>
+                </Entry>
+            <Entry Text="{Binding Password, Mode = TwoWay}"/>
+            <Button Clicked="Handle_Clicked" Text="Log in"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using EduNote.App.MockServices;
+using EduNote.App.NavigationServices;
 using EduNote.App.Pages;
 using EduNote.App.Services;
 using Xamarin.Forms;
@@ -10,11 +12,13 @@ namespace EduNote.App
     public partial class App : Application
     {
         public static IContainer Container { get; set; }
+        public static Page Page { get; set; }
         public App()
         {
             InitializeIOCContainer();
             InitializeComponent();
-            MainPage = new SectionGroupPage();
+            MainPage = new NavigationPage(new LoginPage());
+            Page = MainPage;
         }
 
         protected override void OnStart()
@@ -36,6 +40,7 @@ namespace EduNote.App
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterType<MockSectionGroupService>().As<ISectionGroupService>().SingleInstance();
             builder.RegisterType<MockSectionService>().As<ISectionService>().SingleInstance();
+            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             Container = builder.Build();
 
         }

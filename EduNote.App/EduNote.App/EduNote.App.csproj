@@ -18,8 +18,17 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Pages\" />
     <Folder Include="Components\" />
+    <Folder Include="MockServices\" />
+    <Folder Include="NavigationServices\" />
+    <Folder Include="Validations\" />
+    <Folder Include="Behaviours\" />
+    <Folder Include="Effects\" />
+    <Folder Include="Behaviours\Base\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EduNote.API.Shared\EduNote.API.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Validations\ValidationalObject.cs" />
   </ItemGroup>
 </Project>

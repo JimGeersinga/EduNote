@@ -1,7 +1,8 @@
-﻿using EduNote.App.ViewModels;
+﻿using EduNote.App.Services;
+using EduNote.App.ViewModels;
 using System.Collections.Generic;
 
-namespace EduNote.App.Services
+namespace EduNote.App.MockServices
 {
     public class MockSectionGroupService : ISectionGroupService
     {
