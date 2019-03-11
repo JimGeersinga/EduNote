@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EduNote.API.Database;
 using EduNote.API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EduNote.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NotesController : ControllerBase

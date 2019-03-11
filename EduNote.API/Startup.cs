@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EduNote.API.Database;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using EduNote.API.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +9,12 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Text;
 
 namespace EduNote.API
 {
@@ -35,12 +37,26 @@ namespace EduNote.API
             services.AddDbContext<EduNoteContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase")));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            AppSettings appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    options.Authority = "{yourAuthorizationServerAddress}";
-                    options.Audience = "{yourAudience}";
-                });
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
 
             services.AddSwaggerGen(c =>
             {
@@ -69,12 +85,13 @@ namespace EduNote.API
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             // Register database
-            var optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
+            DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
             container.Register(() => new EduNoteContext(optionsBuilder.Options), Lifestyle.Scoped);
 
             // Register services
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+            container.Register(() => Configuration.GetSection("AppSettings").Get<AppSettings>(), Lifestyle.Singleton);
 
             // Register controllers DI resolution
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
@@ -109,7 +126,7 @@ namespace EduNote.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "EduNote API V1");
                 c.RoutePrefix = string.Empty;
             });
-            
+
             container.RegisterMvcControllers(app);
 
             // Verify Simple Injector configuration
