@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EduNote.API.Database;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,13 @@ namespace EduNote.API
             services.AddDbContext<EduNoteContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase")));
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "{yourAuthorizationServerAddress}";
+                    options.Audience = "{yourAudience}";
+                });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -60,7 +68,7 @@ namespace EduNote.API
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             // Register services
-            //container.Register<IHelloWorldService, HelloWorldService>(Lifestyle.Scoped); // lifestyle can set here, sometimes you want to change the default lifestyle like singleton exeptionally
+            //cont  ainer.Register<IHelloWorldService, HelloWorldService>(Lifestyle.Scoped); // lifestyle can set here, sometimes you want to change the default lifestyle like singleton exeptionally
 
             // Register controllers DI resolution
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
@@ -82,6 +90,8 @@ namespace EduNote.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
