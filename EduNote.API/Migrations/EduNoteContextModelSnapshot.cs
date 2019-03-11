@@ -210,6 +210,10 @@ namespace EduNote.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new { Id = 1, Email = "j.geersinga@outlook.com", FirstName = "Jim", LastName = "Geersinga" }
+                    );
                 });
 
             modelBuilder.Entity("EduNote.API.Models.UserGroups", b =>

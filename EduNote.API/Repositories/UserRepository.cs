@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EduNote.API.Database;
 using EduNote.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduNote.API.Repositories
 {
@@ -20,27 +22,27 @@ namespace EduNote.API.Repositories
             return context.Users;
         }
 
-        public User Create(User user)
+        public async Task<User> Create(User user)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public User FindByEmail(string email)
+        public async Task<User> FindByEmail(string email)
         {
-            return context.Users.FirstOrDefault(user => user.Email.ToLower().Equals(email.ToLower()));
+            return await context.Users.FirstOrDefaultAsync(user => user.Email.ToLower().Equals(email.ToLower()));
         }
 
-        public User Get(int id)
+        public async Task<User> Get(int id)
         {
-            return context.Users.Find(id);
+            return await context.Users.FindAsync(id);
         }
 
-        public User Update(User user)
+        public async Task<User> Update(User user)
         {
             throw new NotImplementedException();
         }

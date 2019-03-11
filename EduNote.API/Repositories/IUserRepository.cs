@@ -9,12 +9,12 @@ namespace EduNote.API.Repositories
     public interface IUserRepository
     {
         IEnumerable<User> All();
-        User Get(int id);
-        User FindByEmail(string email);
+        Task<User> Get(int id);
+        Task<User> FindByEmail(string email);
 
-        User Create(User user);
-        User Update(User user);
+        Task<User> Create(User user);
+        Task<User> Update(User user);
 
-        bool Delete(int id);
+        Task<bool> Delete(int id);
     }
 }

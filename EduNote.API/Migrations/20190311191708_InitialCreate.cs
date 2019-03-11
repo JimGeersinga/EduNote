@@ -62,7 +62,8 @@ namespace EduNote.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -257,6 +258,11 @@ namespace EduNote.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "LastName" },
+                values: new object[] { 1, "j.geersinga@outlook.com", "Jim", "Geersinga" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_CreatedById",

@@ -117,6 +117,9 @@ namespace EduNote.API.Database
                 .WithMany(g => g.QuestionTags)
                 .HasForeignKey(qt => qt.TagId);
             #endregion QuestionTags
+
+            modelBuilder.Entity<User>()
+                .HasData(new User() {Id = 1, FirstName = "Jim", LastName = "Geersinga", Email = "j.geersinga@outlook.com" });
         }
     }
 }

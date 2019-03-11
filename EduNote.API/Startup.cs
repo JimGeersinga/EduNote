@@ -60,9 +60,12 @@ namespace EduNote.API
             // The recommendation is to use AsyncScopedLifestyle in for applications that solely consist of a Web API(or other asynchronous technologies such as ASP.NET Core)
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
+            // Register database
+            var optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
+            container.Register(() => new EduNoteContext(optionsBuilder.Options), Lifestyle.Scoped);
+
             // Register services
-            //container.Register<IHelloWorldService, HelloWorldService>(Lifestyle.Scoped); // lifestyle can set here, sometimes you want to change the default lifestyle like singleton exeptionally
-            
             container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
 
             // Register controllers DI resolution
@@ -86,7 +89,6 @@ namespace EduNote.API
 
             app.UseHttpsRedirection();
 
-            container.Register(() => app.GetRequestService<EduNoteContext>(), Lifestyle.Singleton);
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -97,13 +99,13 @@ namespace EduNote.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "EduNote API V1");
                 c.RoutePrefix = string.Empty;
             });
-
-            app.UseMvc();
-
+            
             container.RegisterMvcControllers(app);
 
             // Verify Simple Injector configuration
             container.Verify();
+
+            app.UseMvc();
         }
     }
 }
