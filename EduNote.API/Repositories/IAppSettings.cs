@@ -7,6 +7,6 @@ namespace EduNote.API.Repositories
 {
     public interface IAppSettings
     {
-       string Secret { get; set; }
+        public string Secret { get; set; }
     }
 }
