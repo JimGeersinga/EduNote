@@ -1,16 +1,28 @@
 ﻿using AutoMapper;
-using EduNote.API.Database;
+using EduNote.API.EF;
+using EduNote.API.EF.Models;
+using EduNote.API.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
+using Microsoft.Extensions.Options;
 
 namespace EduNote.API
 {
@@ -28,50 +40,95 @@ namespace EduNote.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+               .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+               .AddJsonOptions(
+                   options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+               );
+
             services.AddAutoMapper();
-            services.AddDbContext<EduNoteContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase")));
+
+
+            services.AddDbContext<EduNoteContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API")));
+
+
+
+            // configure strongly typed settings objects
+            IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // configure jwt authentication
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Version = "v1",
+                    Version = "V1",
                     Title = "EduNote API",
-                    Description = "A simple ASP.NET Core Web API",
-                    TermsOfService = "None",
-                    Contact = new Contact
-                    {
-                        Name = "EduNote",
-                        Email = string.Empty,
-                        Url = string.Empty
-                    },
-                    License = new License
-                    {
-                        Name = "Use under MIT",
-                        Url = "https://opensource.org/licenses/MIT"
-                    }
+                    Description = "Documentation for the Edunote system.",
+                    Contact = new Contact() { Name = "Jim Geersinga", Email = "j.geersinga@outlook.com" }
                 });
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"\n Please insert JWT with Bearer into field.",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>()
+                {
+                  { "Bearer", new string[]{ } }
+                });
+                //string filePath = Path.Combine(System.AppContext.BaseDirectory, "WebApi.xml");
+                //c.IncludeXmlComments(filePath);
+                c.DescribeAllEnumsAsStrings();
             });
 
-            // Default lifestyle scoped + async
-            // The recommendation is to use AsyncScopedLifestyle in for applications that solely consist of a Web API(or other asynchronous technologies such as ASP.NET Core)
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            // Register services
-            //container.Register<IHelloWorldService, HelloWorldService>(Lifestyle.Scoped); // lifestyle can set here, sometimes you want to change the default lifestyle like singleton exeptionally
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            // Register controllers DI resolution
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
 
-            // Wrap AspNet requests into Simpleinjector's scoped lifestyle
             services.UseSimpleInjectorAspNetRequestScoping(container);
+            services.EnableSimpleInjectorCrossWiring(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
+            //optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
+
+            container.RegisterMvcControllers(app);
+            var builder = new DbContextOptionsBuilder<EduNoteContext>();
+            builder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API"));
+            Bootstrapper.Bootstrap(container, builder.Options);
+
+            // Allow Simple Injector to resolve services from ASP.NET Core.
+            container.AutoCrossWireAspNetComponents(app);
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,20 +140,19 @@ namespace EduNote.API
 
             app.UseHttpsRedirection();
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            app.UseAuthentication();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
+            app.UseMvc();
+
+            app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "EduNote API V1");
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseMvc();
-
-            container.RegisterMvcControllers(app);
+            // Configure static AutoMapper instance
+            Helpers.AutoMapper.Initialize();
 
             // Verify Simple Injector configuration
             container.Verify();
