@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace EduNote.API.Shared.ApiModels
 {
@@ -10,7 +9,6 @@ namespace EduNote.API.Shared.ApiModels
         public string Body { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
-        public int test { get; set; }
         public int SectionId { get; set; }
         public int CreatedById { get; set; }
         public int UpdatedById { get; set; }
