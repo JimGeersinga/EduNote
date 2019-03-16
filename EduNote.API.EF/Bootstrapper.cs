@@ -1,4 +1,7 @@
-﻿using System;
+﻿using EduNote.API.EF.Interfaces;
+using EduNote.API.EF.Services;
+using SimpleInjector;
+using System;
 
 namespace EduNote.API.EF
 {
@@ -6,8 +9,8 @@ namespace EduNote.API.EF
     {
         public static void Bootstrap(Container container)
         {
-            container.Register<HCMSROCATEQCASTERV2Context>(() => new HCMSROCATEQCASTERV2Context(), Lifestyle.Scoped);
-            container.Register<IRepository, EFRepository<HCMSROCATEQCASTERV2Context>>(Lifestyle.Scoped);
+            container.Register<EduNoteContext>(() => new EduNoteContext(), Lifestyle.Scoped);
+            container.Register<IRepository, EFRepository<EduNoteContext>>(Lifestyle.Scoped);
         }
     }
 }

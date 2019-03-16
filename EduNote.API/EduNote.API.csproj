@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
-    <Folder Include="Database\" />
     <Folder Include="Factories\" />
     <Folder Include="Profiles\" />
   </ItemGroup>
@@ -21,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EduNote.API.EF\EduNote.API.EF.csproj" />
     <ProjectReference Include="..\EduNote.API.Shared\EduNote.API.Shared.csproj" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using EduNote.API.EF.Interfaces;
+using EduNote.API.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace EduNote.API.EF.Services
         {
         }
 
-        public virtual TEntity Create<TEntity>(TEntity entity, string createdBy = null)
+        public virtual TEntity Create<TEntity>(TEntity entity, User createdBy = null)
             where TEntity : class, IEntity
         {
             entity.Created = DateTime.UtcNow;
@@ -26,7 +27,7 @@ namespace EduNote.API.EF.Services
             return entity;
         }
 
-        public virtual TEntity Update<TEntity>(TEntity entity, string modifiedBy = null)
+        public virtual TEntity Update<TEntity>(TEntity entity, User modifiedBy = null)
             where TEntity : class, IEntity
         {
             entity.Modified = DateTime.UtcNow;
