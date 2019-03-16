@@ -126,7 +126,28 @@ namespace EduNote.API.EF
             #endregion QuestionTags
 
             modelBuilder.Entity<User>()
-                .HasData(new User() { Id = 1, FirstName = "Jim", LastName = "Geersinga", Email = "j.geersinga@outlook.com" });
+                .HasData(new User() { Id = 1, FirstName = "Jim", LastName = "Geersinga", Email = "0968640@hr.nl" },
+                         new User() { Id = 2, FirstName = "Simon", LastName = "Besseling", Email = "simonbesseling@outlook.com" },
+                         new User() { Id = 3, FirstName = "Kamiel", LastName = "Kruidenier", Email = "0548643@hr.nl" },
+                         new User() { Id = 4, FirstName = "Mike", LastName = "Van Leeuwen", Email = "0973546@hr.nl" },
+                         new User() { Id = 5, FirstName = "Marco", LastName = "Peltenburg", Email = "0958245@hr.nl" });
+
+            modelBuilder.Entity<Section>()
+                .HasData(new Section() { Id = 1, Title = "Year 1", Description = "" },
+                         new Section() { Id = 2, Title = "Year 2", Description = "" },
+                         new Section() { Id = 3, Title = "Dev", Description = "", ParentId = 1 });
+
+            modelBuilder.Entity<Question>()
+                .HasData(new Question() { Id = 1, Title = "Why is a camel?", Body = "Confirmed to have a body.", SectionId = 1, CreatedById = 1, Created = DateTime.UtcNow },
+                         new Question() { Id = 2, Title = "Lorem ipsum", Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", SectionId = 2, CreatedById = 1, Created = DateTime.UtcNow });
+
+            modelBuilder.Entity<Answer>()
+                .HasData(new Answer() { Id = 1, Body = "Yes", QuestionId = 1, CreatedById = 1, Created = DateTime.UtcNow },
+                         new Answer() { Id = 2, Body = "What the .. do you mean?", QuestionId = 1, CreatedById = 1, Created = DateTime.UtcNow },
+                         new Answer() { Id = 3, Body = "This is correct", QuestionId = 2, CreatedById = 1, Created = DateTime.UtcNow });
+
+            modelBuilder.Entity<Note>()
+                .HasData(new Note() { Id = 1, Title = "Dev 3 OOP", Body = "A Full guide to ", SectionId = 3, CreatedById = 1, Created = DateTime.UtcNow });                         
         }
     }
 }

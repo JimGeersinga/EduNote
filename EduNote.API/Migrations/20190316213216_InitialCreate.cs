@@ -33,7 +33,7 @@ namespace EduNote.API.Migrations
                     Modified = table.Column<DateTime>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    ParentId = table.Column<int>(nullable: false)
+                    ParentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -275,9 +275,55 @@ namespace EduNote.API.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Sections",
+                columns: new[] { "Id", "Created", "Description", "Modified", "ParentId", "Title" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", null, null, "Year 1" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", null, null, "Year 2" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Created", "Email", "FirstName", "LastName", "Modified", "Password", "Token" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "j.geersinga@outlook.com", "Jim", "Geersinga", null, null, null });
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0968640@hr.nl", "Jim", "Geersinga", null, null, null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "simonbesseling@outlook.com", "Simon", "Besseling", null, null, null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0548643@hr.nl", "Kamiel", "Kruidenier", null, null, null },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0973546@hr.nl", "Mike", "Van Leeuwen", null, null, null },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0958245@hr.nl", "Marco", "Peltenburg", null, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Questions",
+                columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "SectionId", "Title" },
+                values: new object[] { 1, "Confirmed to have a body.", new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), 1, null, null, 1, "Why is a camel?" });
+
+            migrationBuilder.InsertData(
+                table: "Questions",
+                columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "SectionId", "Title" },
+                values: new object[] { 2, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), 1, null, null, 2, "Lorem ipsum" });
+
+            migrationBuilder.InsertData(
+                table: "Sections",
+                columns: new[] { "Id", "Created", "Description", "Modified", "ParentId", "Title" },
+                values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", null, 1, "Dev" });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "QuestionId" },
+                values: new object[,]
+                {
+                    { 1, "Yes", new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), 1, null, null, 1 },
+                    { 2, "What the .. do you mean?", new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), 1, null, null, 1 },
+                    { 3, "This is correct", new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), 1, null, null, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Notes",
+                columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "SectionId", "Title" },
+                values: new object[] { 1, "A Full guide to ", new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), 1, null, null, 3, "Dev 3 OOP" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_CreatedById",

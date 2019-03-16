@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using EduNote.API.Profiles;
 
 namespace EduNote.API.Helpers
 {
@@ -10,8 +7,9 @@ namespace EduNote.API.Helpers
     {
         public static void Initialize()
         {
-            Mapper.Initialize(cfg => {               
-
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
             });
         }
     }
