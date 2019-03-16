@@ -2,10 +2,9 @@
 
 namespace EduNote.API.Shared.ApiModels
 {
-    public class TagAPIModel
+    public class GroupListDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
     }
 }

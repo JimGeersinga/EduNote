@@ -9,53 +9,19 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EduUser.API.Controllers
+namespace EduNote.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController<User, UserListDTO, UserDetailDTO>
     {
         private readonly IRepository _dataService;
         private readonly AppSettings _appSettings;
 
-        public UsersController(IRepository dataService, IOptions<AppSettings> appSettings)
+        public UsersController(IRepository dataService, IOptions<AppSettings> appSettings) : base(dataService, appSettings)
         {
             _dataService = dataService;
             _appSettings = appSettings.Value;
-        }
-
-        // GET: api/Users
-        [HttpGet]
-        public IActionResult GetUsers()
-        {
-            try
-            {
-                IEnumerable<User> users = _dataService.GetAll<User>();  
-                return Ok(Mapper.Map<List<UserAPIModel>>(users));
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e);
-            }
-        }
-
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            User user = await _dataService.GetByIdAsync<User>(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
-        }
-
+        } 
     }
 }

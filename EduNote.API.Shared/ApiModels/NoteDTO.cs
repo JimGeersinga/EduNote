@@ -2,7 +2,7 @@
 
 namespace EduNote.API.Shared.ApiModels
 {
-    public class NoteAPIModel
+    public class NoteDTO 
     {
         public int Id { get; set; }
         public string Title { get; set; }

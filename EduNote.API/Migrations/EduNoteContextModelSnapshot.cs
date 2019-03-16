@@ -21,7 +21,7 @@ namespace EduNote.API.Migrations
 
             modelBuilder.Entity("EduNote.API.EF.Models.Answer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -29,13 +29,13 @@ namespace EduNote.API.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<int>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int?>("ModifiedById");
+                    b.Property<long?>("ModifiedById");
 
-                    b.Property<int>("QuestionId");
+                    b.Property<long>("QuestionId");
 
                     b.HasKey("Id");
 
@@ -48,15 +48,15 @@ namespace EduNote.API.Migrations
                     b.ToTable("Answers");
 
                     b.HasData(
-                        new { Id = 1, Body = "Yes", Created = new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), CreatedById = 1, QuestionId = 1 },
-                        new { Id = 2, Body = "What the .. do you mean?", Created = new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), CreatedById = 1, QuestionId = 1 },
-                        new { Id = 3, Body = "This is correct", Created = new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), CreatedById = 1, QuestionId = 2 }
+                        new { Id = 1L, Body = "Yes", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
+                        new { Id = 2L, Body = "What the .. do you mean?", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
+                        new { Id = 3L, Body = "This is correct", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 2L }
                     );
                 });
 
             modelBuilder.Entity("EduNote.API.EF.Models.Group", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -73,7 +73,7 @@ namespace EduNote.API.Migrations
 
             modelBuilder.Entity("EduNote.API.EF.Models.Note", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -81,13 +81,13 @@ namespace EduNote.API.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<int>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int?>("ModifiedById");
+                    b.Property<long?>("ModifiedById");
 
-                    b.Property<int>("SectionId");
+                    b.Property<long>("SectionId");
 
                     b.Property<string>("Title");
 
@@ -102,13 +102,13 @@ namespace EduNote.API.Migrations
                     b.ToTable("Notes");
 
                     b.HasData(
-                        new { Id = 1, Body = "A Full guide to ", Created = new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), CreatedById = 1, SectionId = 3, Title = "Dev 3 OOP" }
+                        new { Id = 1L, Body = "A Full guide to ", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, SectionId = 3L, Title = "Dev 3 OOP" }
                     );
                 });
 
             modelBuilder.Entity("EduNote.API.EF.Models.NoteTags", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -116,9 +116,9 @@ namespace EduNote.API.Migrations
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int>("NoteId");
+                    b.Property<long>("NoteId");
 
-                    b.Property<int>("TagId");
+                    b.Property<long>("TagId");
 
                     b.HasKey("Id");
 
@@ -131,7 +131,7 @@ namespace EduNote.API.Migrations
 
             modelBuilder.Entity("EduNote.API.EF.Models.Question", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -139,13 +139,13 @@ namespace EduNote.API.Migrations
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<int>("CreatedById");
+                    b.Property<long>("CreatedById");
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int?>("ModifiedById");
+                    b.Property<long?>("ModifiedById");
 
-                    b.Property<int>("SectionId");
+                    b.Property<long>("SectionId");
 
                     b.Property<string>("Title");
 
@@ -160,14 +160,14 @@ namespace EduNote.API.Migrations
                     b.ToTable("Questions");
 
                     b.HasData(
-                        new { Id = 1, Body = "Confirmed to have a body.", Created = new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), CreatedById = 1, SectionId = 1, Title = "Why is a camel?" },
-                        new { Id = 2, Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", Created = new DateTime(2019, 3, 16, 21, 32, 16, 450, DateTimeKind.Utc), CreatedById = 1, SectionId = 2, Title = "Lorem ipsum" }
+                        new { Id = 1L, Body = "Confirmed to have a body.", Created = new DateTime(2019, 3, 16, 22, 44, 56, 983, DateTimeKind.Utc), CreatedById = 1L, SectionId = 1L, Title = "Why is a camel?" },
+                        new { Id = 2L, Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", Created = new DateTime(2019, 3, 16, 22, 44, 56, 983, DateTimeKind.Utc), CreatedById = 1L, SectionId = 2L, Title = "Lorem ipsum" }
                     );
                 });
 
             modelBuilder.Entity("EduNote.API.EF.Models.QuestionTags", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -175,9 +175,9 @@ namespace EduNote.API.Migrations
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int>("QuestionId");
+                    b.Property<long>("QuestionId");
 
-                    b.Property<int>("TagId");
+                    b.Property<long>("TagId");
 
                     b.HasKey("Id");
 
@@ -190,7 +190,7 @@ namespace EduNote.API.Migrations
 
             modelBuilder.Entity("EduNote.API.EF.Models.Section", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -200,7 +200,7 @@ namespace EduNote.API.Migrations
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int?>("ParentId");
+                    b.Property<long?>("ParentId");
 
                     b.Property<string>("Title");
 
@@ -211,15 +211,15 @@ namespace EduNote.API.Migrations
                     b.ToTable("Sections");
 
                     b.HasData(
-                        new { Id = 1, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "", Title = "Year 1" },
-                        new { Id = 2, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "", Title = "Year 2" },
-                        new { Id = 3, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "", ParentId = 1, Title = "Dev" }
+                        new { Id = 1L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "", Title = "Year 1" },
+                        new { Id = 2L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "", Title = "Year 2" },
+                        new { Id = 3L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "", ParentId = 1L, Title = "Dev" }
                     );
                 });
 
             modelBuilder.Entity("EduNote.API.EF.Models.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -236,7 +236,7 @@ namespace EduNote.API.Migrations
 
             modelBuilder.Entity("EduNote.API.EF.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -259,27 +259,27 @@ namespace EduNote.API.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0968640@hr.nl", FirstName = "Jim", LastName = "Geersinga" },
-                        new { Id = 2, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "simonbesseling@outlook.com", FirstName = "Simon", LastName = "Besseling" },
-                        new { Id = 3, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0548643@hr.nl", FirstName = "Kamiel", LastName = "Kruidenier" },
-                        new { Id = 4, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0973546@hr.nl", FirstName = "Mike", LastName = "Van Leeuwen" },
-                        new { Id = 5, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0958245@hr.nl", FirstName = "Marco", LastName = "Peltenburg" }
+                        new { Id = 1L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0968640@hr.nl", FirstName = "Jim", LastName = "Geersinga" },
+                        new { Id = 2L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "simonbesseling@outlook.com", FirstName = "Simon", LastName = "Besseling" },
+                        new { Id = 3L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0548643@hr.nl", FirstName = "Kamiel", LastName = "Kruidenier" },
+                        new { Id = 4L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0973546@hr.nl", FirstName = "Mike", LastName = "Van Leeuwen" },
+                        new { Id = 5L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0958245@hr.nl", FirstName = "Marco", LastName = "Peltenburg" }
                     );
                 });
 
             modelBuilder.Entity("EduNote.API.EF.Models.UserGroups", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<int>("GroupId");
+                    b.Property<long>("GroupId");
 
                     b.Property<DateTime?>("Modified");
 
-                    b.Property<int>("UserId");
+                    b.Property<long>("UserId");
 
                     b.HasKey("Id");
 

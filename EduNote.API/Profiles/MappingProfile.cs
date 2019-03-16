@@ -7,16 +7,17 @@ namespace EduNote.API.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Answer, AnswerAPIModel>().ReverseMap();
-            CreateMap<Group, GroupAPIModel>().ReverseMap();
-            CreateMap<Note, NoteAPIModel>().ReverseMap();
-            CreateMap<NoteTags, NoteTagsAPIModel>().ReverseMap();
-            CreateMap<Question, QuestionAPIModel>().ReverseMap();
-            CreateMap<QuestionTags, QuestionTagAPIModel>().ReverseMap();
-            CreateMap<Section, SectionAPIModel>().ReverseMap();
-            CreateMap<Tag, TagAPIModel>().ReverseMap();
-            CreateMap<User, UserAPIModel>().ReverseMap();
-            CreateMap<UserGroups, UserGroupAPIModel>().ReverseMap();
+            CreateMap<Answer, AnswerDTO>().ReverseMap();
+            CreateMap<Group, GroupDetailDTO>().ReverseMap();
+            CreateMap<Group, GroupListDTO>().ReverseMap();
+            CreateMap<Note, NoteDTO>().ReverseMap();
+            CreateMap<Question, QuestionDetailDTO>().ReverseMap();
+            CreateMap<Question, QuestionListDTO>().ReverseMap();
+            CreateMap<Section, SectionDetailDTO>().ReverseMap();
+            CreateMap<Section, SectionListDTO>().ReverseMap();
+            CreateMap<Tag, TagDTO>().ReverseMap();
+            CreateMap<User, UserDetailDTO>().ReverseMap();
+            CreateMap<User, UserListDTO>().ReverseMap();
         }
     }
 }

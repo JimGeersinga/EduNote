@@ -5,7 +5,7 @@ namespace EduNote.API.EF.Interfaces
 {
     public interface IEntity
     {
-        int Id { get; set; }
+        long Id { get; set; }
 
         DateTime Created { get; set; }
         DateTime? Modified { get; set; }
