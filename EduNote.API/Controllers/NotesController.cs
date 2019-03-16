@@ -62,7 +62,7 @@ namespace EduNote.API.Controllers
                 try
                 {
                     Note note = Mapper.Map<Note>(model);
-                    User user = _dataService.GetById<User>(0);
+                    User user = _dataService.GetById<User>(1);
                     note.CreatedBy = user;
                     note.ModifiedBy = user;
 
@@ -84,7 +84,7 @@ namespace EduNote.API.Controllers
             {
                 try
                 {
-                    User user = _dataService.GetById<User>(0);
+                    User user = _dataService.GetById<User>(1);
                     Note note = _dataService.GetById<Note>(id);
                     note.ModifiedBy = user;
 
