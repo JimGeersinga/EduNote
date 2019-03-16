@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EduNote.API.EF;
+using EduNote.API.EF.Interfaces;
+using EduNote.API.EF.Models;
+using EduNote.API.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,113 +17,114 @@ namespace EduNote.API.Controllers
     [ApiController]
     public class NotesController : ControllerBase
     {
-        private readonly EduNoteContext _context;
+        private readonly IRepository _dataService;
+        private readonly AppSettings _appSettings;
 
-        public NotesController(EduNoteContext context)
+        public NotesController(IRepository dataService, IOptions<AppSettings> appSettings)
         {
-            _context = context;
+            _dataService = dataService;
+            _appSettings = appSettings.Value;
         }
 
-        // GET: api/Notes
         [HttpGet]
         public IEnumerable<Note> GetNotes()
         {
-            return _context.Notes;
+            return _dataService.GetAll<Note>();
         }
 
-        // GET: api/Notes/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetNote([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Notes/5
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetNote([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var note = await _context.Notes.FindAsync(id);
+        //    var note = await _context.Notes.FindAsync(id);
 
-            if (note == null)
-            {
-                return NotFound();
-            }
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(note);
-        }
+        //    return Ok(note);
+        //}
 
         // PUT: api/Notes/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutNote([FromRoute] int id, [FromBody] Note note)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutNote([FromRoute] int id, [FromBody] Note note)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != note.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != note.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(note).State = EntityState.Modified;
+        //    _context.Entry(note).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!NoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!NoteExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/Notes
-        [HttpPost]
-        public async Task<IActionResult> PostNote([FromBody] Note note)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> PostNote([FromBody] Note note)
+        //{
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            _context.Notes.Add(note);
-            await _context.SaveChangesAsync();
+        //    _context.Notes.Add(note);
+        //    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetNote", new { id = note.Id }, note);
-        }
+        //    return CreatedAtAction("GetNote", new { id = note.Id }, note);
+        //}
 
-        // DELETE: api/Notes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteNote([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// DELETE: api/Notes/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteNote([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var note = await _context.Notes.FindAsync(id);
-            if (note == null)
-            {
-                return NotFound();
-            }
+        //    var note = await _context.Notes.FindAsync(id);
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Notes.Remove(note);
-            await _context.SaveChangesAsync();
+        //    _context.Notes.Remove(note);
+        //    await _context.SaveChangesAsync();
 
-            return Ok(note);
-        }
+        //    return Ok(note);
+        //}
 
-        private bool NoteExists(int id)
-        {
-            return _context.Notes.Any(e => e.Id == id);
-        }
+        //private bool NoteExists(int id)
+        //{
+        //    return _context.Notes.Any(e => e.Id == id);
+        //}
     }
 }
