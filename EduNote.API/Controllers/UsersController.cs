@@ -2,6 +2,7 @@
 using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
+using EduNote.API.Shared.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
@@ -24,38 +25,37 @@ namespace EduUser.API.Controllers
         }
 
         // GET: api/Users
-        //[HttpGet]
-        //public IActionResult GetUsers()
-        //{
-        //    try
-        //    {
-        //        IEnumerable<User> users = _dataService.GetAll<User>();  
-        //        return Ok(Mapper.Map<List<UserDTO>>(users));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return StatusCode(500, e);
-        //    }
-        //}
+        [HttpGet]
+        public IActionResult GetUsers()
+        {
+            try
+            {
+                IEnumerable<User> users = _dataService.GetAll<User>();  
+                return Ok(Mapper.Map<List<UserAPIModel>>(users));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
 
-        //// GET: api/Users/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUser([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // GET: api/Users/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            User user = await _dataService.GetByIdAsync<User>(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //    User user = await _userRepository.Get(id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(user);
-        //}
+            return Ok(user);
+        }
 
     }
 }

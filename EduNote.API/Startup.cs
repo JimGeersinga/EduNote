@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EduNote.API.Database;
-using EduNote.API.Repositories;
+using EduNote.API.EF;
+using EduNote.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,7 +68,7 @@ namespace EduNote.API
                     ValidateAudience = false
                 };
             });
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -99,18 +99,9 @@ namespace EduNote.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
-    
+
             services.EnableSimpleInjectorCrossWiring(container);
             services.UseSimpleInjectorAspNetRequestScoping(container);
-
-            // Register database
-            DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
-            container.Register(() => new EduNoteContext(optionsBuilder.Options), Lifestyle.Scoped);
-
-            // Register services
-            container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
-            container.Register(() => Configuration.GetSection("AppSettings").Get<AppSettings>(), Lifestyle.Singleton);
 
 
             // Wrap AspNet requests into Simpleinjector's scoped lifestyle
@@ -120,7 +111,11 @@ namespace EduNote.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            DiBootstrapper(app);
+            DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
+
+            container.RegisterMvcControllers(app);
+            EduNote.API.EF.Bootstrapper.Bootstrap(container, optionsBuilder.Options);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             container.AutoCrossWireAspNetComponents(app);
@@ -139,7 +134,7 @@ namespace EduNote.API
             app.UseAuthentication();
 
             app.UseMvc();
-            
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -150,17 +145,6 @@ namespace EduNote.API
 
             // Verify Simple Injector configuration
             container.Verify();
-        }
-
-        private void DiBootstrapper(IApplicationBuilder app)
-        {
-            container.RegisterMvcControllers(app);
-
-            // Add application services. For instance:
-            container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
-
-            // Cross-wire ASP.NET services (if any). For instance:
-            container.RegisterSingleton(app.ApplicationServices.GetService<ILoggerFactory>());
         }
     }
 }
