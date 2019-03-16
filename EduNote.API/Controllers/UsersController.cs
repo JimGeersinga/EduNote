@@ -2,6 +2,7 @@
 using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
+using EduNote.API.Shared.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
@@ -30,7 +31,7 @@ namespace EduUser.API.Controllers
             try
             {
                 IEnumerable<User> users = _dataService.GetAll<User>();  
-                return Ok(Mapper.Map<List<UserDTO>>(users));
+                return Ok(Mapper.Map<List<UserAPIModel>>(users));
             }
             catch (Exception e)
             {
@@ -46,9 +47,8 @@ namespace EduUser.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            User user = await _userRepository.Get(id);
-
+            
+            User user = await _dataService.GetByIdAsync<User>(id);
             if (user == null)
             {
                 return NotFound();

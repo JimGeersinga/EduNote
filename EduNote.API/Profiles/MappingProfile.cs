@@ -1,6 +1,5 @@
-﻿using System;
-using AutoMapper;
-using EduNote.API.Models;
+﻿using AutoMapper;
+using EduNote.API.EF.Models;
 using EduNote.API.Shared.ApiModels;
 namespace EduNote.API.Profiles
 {
