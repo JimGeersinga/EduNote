@@ -9,5 +9,12 @@ namespace EduNote.API.EF.Models
         public int QuestionId { get; set; }
 
         public Question Question { get; set; }
+
+
+        public int CreatedById { get; set; }
+        public int? ModifiedById { get; set; }
+
+        public User CreatedBy { get; set; }
+        public User ModifiedBy { get; set; }
     }
 }

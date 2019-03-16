@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
 using EduNote.API.Shared.ApiModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
 
 
 namespace EduNote.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     public class NotesController : Controller
     {
         private readonly IRepository _dataService;
         private readonly AppSettings _appSettings;
-        private readonly UserManager<User> _userManager;
 
-        public NotesController(IRepository dataService, IOptions<AppSettings> appSettings, UserManager<User> userManager)
+        public NotesController(IRepository dataService, IOptions<AppSettings> appSettings)
         {
             _dataService = dataService;
             _appSettings = appSettings.Value;
-            _userManager = userManager;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            try 
+            try
             {
                 IEnumerable<Note> notes = _dataService.GetAll<Note>();
 
@@ -47,9 +43,9 @@ namespace EduNote.API.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            try 
+            try
             {
-                Note note = _dataService.GetById(id, ??????);
+                Note note = _dataService.GetById<Note>(id);
 
                 return StatusCode(200, Mapper.Map<NoteAPIModel>(note));
             }
@@ -67,10 +63,11 @@ namespace EduNote.API.Controllers
                 try
                 {
                     Note note = Mapper.Map<Note>(model);
-                    string userId = _userManager.GetUserId(HttpContext.User);
-                    User user = _dataService.GetById<User>(userId, ???????);
+                    User user = _dataService.GetById<User>(0);
+                    note.CreatedBy = user;
+                    note.ModifiedBy = user;
 
-                    return StatusCode(200, _dataService.Create(note, user));
+                    return StatusCode(200, _dataService.Create(note));
                 }
                 catch (Exception e)
                 {
@@ -88,15 +85,15 @@ namespace EduNote.API.Controllers
             {
                 try
                 {
-                    string userId = _userManager.GetUserId(HttpContext.User);
-                    User user = _dataService.GetById<User>(userId, ???????);
-                    Note note = _dataService.GetById<Note>(id, ?????);
+                    User user = _dataService.GetById<User>(0);
+                    Note note = _dataService.GetById<Note>(id);
+                    note.ModifiedBy = user;
 
                     Mapper.Map(model, note);
 
-                    _dataService.Update(note, user);
+                    _dataService.Update(note);
 
-                    return StatusCode(200, _dataService.Create(note, user));
+                    return StatusCode(200, _dataService.Update(note));
                 }
                 catch (Exception e)
                 {
@@ -112,7 +109,7 @@ namespace EduNote.API.Controllers
         {
             try
             {
-                Note note = _dataService.GetById(id, ??????);
+                Note note = _dataService.GetById<Note>(id);
 
                 _dataService.Delete(note);
 

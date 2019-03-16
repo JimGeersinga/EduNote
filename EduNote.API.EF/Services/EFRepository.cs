@@ -1,7 +1,10 @@
 ﻿using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EduNote.API.EF.Services
@@ -14,12 +17,9 @@ namespace EduNote.API.EF.Services
         {
         }
 
-        public virtual TEntity Create<TEntity>(TEntity entity, User createdBy = null)
+        public virtual TEntity Create<TEntity>(TEntity entity)
             where TEntity : class, IEntity
         {
-            entity.Created = DateTime.UtcNow;
-            entity.CreatedBy = createdBy;
-
             context.Set<TEntity>().Add(entity);
 
             Save();
@@ -27,12 +27,9 @@ namespace EduNote.API.EF.Services
             return entity;
         }
 
-        public virtual TEntity Update<TEntity>(TEntity entity, User modifiedBy = null)
+        public virtual TEntity Update<TEntity>(TEntity entity)
             where TEntity : class, IEntity
         {
-            entity.Modified = DateTime.UtcNow;
-            entity.ModifiedBy = modifiedBy;
-
             context.Set<TEntity>().Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
 
@@ -63,6 +60,7 @@ namespace EduNote.API.EF.Services
         {
             try
             {
+                AddInfo();
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -75,11 +73,25 @@ namespace EduNote.API.EF.Services
         {
             try
             {
+                AddInfo();
                 return context.SaveChangesAsync();
             }
             catch (Exception e)
             {
                 throw (e);
+            }
+        }
+
+        private void AddInfo()
+        {
+            IEnumerable<EntityEntry> entries = context.ChangeTracker.Entries().Where(x => x.Entity is BaseModel && (x.State == EntityState.Added || x.State == EntityState.Modified));
+            foreach (EntityEntry entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    ((BaseModel)entry.Entity).Created = DateTime.UtcNow;
+                }
+                ((BaseModel)entry.Entity).Modified = DateTime.UtcNow;
             }
         }
     }

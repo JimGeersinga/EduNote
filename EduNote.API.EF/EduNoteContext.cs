@@ -1,10 +1,16 @@
 ﻿using EduNote.API.EF.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EduNote.API.EF
 {
     public class EduNoteContext : DbContext
     {
+
         public EduNoteContext(DbContextOptions<EduNoteContext> options) : base(options)
         {
         }
@@ -19,6 +25,9 @@ namespace EduNote.API.EF
         public virtual DbSet<NoteTags> NoteTags { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Answer> Answers { get; set; }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

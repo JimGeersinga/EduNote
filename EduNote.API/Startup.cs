@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EduNote.API.EF;
+using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -7,10 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
@@ -19,6 +20,9 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
+using Microsoft.Extensions.Options;
 
 namespace EduNote.API
 {
@@ -43,6 +47,12 @@ namespace EduNote.API
                );
 
             services.AddAutoMapper();
+
+
+            services.AddDbContext<EduNoteContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API")));
+
+
 
             // configure strongly typed settings objects
             IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
@@ -89,8 +99,8 @@ namespace EduNote.API
                 {
                   { "Bearer", new string[]{ } }
                 });
-                string filePath = Path.Combine(System.AppContext.BaseDirectory, "WebApi.xml");
-                c.IncludeXmlComments(filePath);
+                //string filePath = Path.Combine(System.AppContext.BaseDirectory, "WebApi.xml");
+                //c.IncludeXmlComments(filePath);
                 c.DescribeAllEnumsAsStrings();
             });
 
@@ -100,25 +110,24 @@ namespace EduNote.API
 
             services.AddSingleton<IControllerActivator>(new SimpleInjectorControllerActivator(container));
 
+            services.UseSimpleInjectorAspNetRequestScoping(container);
             services.EnableSimpleInjectorCrossWiring(container);
-            services.UseSimpleInjectorAspNetRequestScoping(container);
-
-
-            // Wrap AspNet requests into Simpleinjector's scoped lifestyle
-            services.UseSimpleInjectorAspNetRequestScoping(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
+            //DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
+            //optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
 
             container.RegisterMvcControllers(app);
-            EduNote.API.EF.Bootstrapper.Bootstrap(container, optionsBuilder.Options);
+            var builder = new DbContextOptionsBuilder<EduNoteContext>();
+            builder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API"));
+            Bootstrapper.Bootstrap(container, builder.Options);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             container.AutoCrossWireAspNetComponents(app);
+
 
             if (env.IsDevelopment())
             {
@@ -142,6 +151,8 @@ namespace EduNote.API
                 c.RoutePrefix = string.Empty;
             });
 
+            // Configure static AutoMapper instance
+            Helpers.AutoMapper.Initialize();
 
             // Verify Simple Injector configuration
             container.Verify();

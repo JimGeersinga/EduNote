@@ -8,10 +8,10 @@ namespace EduNote.API.EF.Interfaces
 {
     public interface IRepository : IReadOnlyRepository
     {
-        TEntity Create<TEntity>(TEntity entity, User createdBy = null)
+        TEntity Create<TEntity>(TEntity entity)
         where TEntity : class, IEntity;
 
-        TEntity Update<TEntity>(TEntity entity, User modifiedBy = null)
+        TEntity Update<TEntity>(TEntity entity)
             where TEntity : class, IEntity;
 
         void Delete<TEntity>(object id)
