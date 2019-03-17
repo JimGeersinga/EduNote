@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace EduNote.API.Shared.ApiModels
+﻿namespace EduNote.API.Shared.ApiModels
 {
-    public class UserListDTO
+    public class RegisterDTO
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-
+        public string Password { get; set; }
     }
 }
