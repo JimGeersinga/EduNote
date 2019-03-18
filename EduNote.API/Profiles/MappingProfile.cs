@@ -18,6 +18,7 @@ namespace EduNote.API.Profiles
             CreateMap<Tag, TagDTO>().ReverseMap();
             CreateMap<User, UserDetailDTO>().ReverseMap();
             CreateMap<User, UserListDTO>().ReverseMap();
+            CreateMap<RegisterDTO, User>().ForMember(x => x.Password, opt => opt.Ignore());
         }
     }
 }

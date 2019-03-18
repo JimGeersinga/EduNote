@@ -23,6 +23,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using Microsoft.Extensions.Options;
+using EduNote.API.Services;
 
 namespace EduNote.API
 {
@@ -48,10 +49,8 @@ namespace EduNote.API
 
             services.AddAutoMapper();
 
-
             services.AddDbContext<EduNoteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API")));
-
 
 
             // configure strongly typed settings objects
@@ -117,13 +116,13 @@ namespace EduNote.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //DbContextOptionsBuilder<EduNoteContext> optionsBuilder = new DbContextOptionsBuilder<EduNoteContext>();
-            //optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"));
-
             container.RegisterMvcControllers(app);
+
             var builder = new DbContextOptionsBuilder<EduNoteContext>();
             builder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API"));
             Bootstrapper.Bootstrap(container, builder.Options);
+
+            container.Register<IUserService, UserService>(Lifestyle.Scoped);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             container.AutoCrossWireAspNetComponents(app);

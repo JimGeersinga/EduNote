@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EduNote.API.EF.Interfaces;
 using EduNote.API.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 
 namespace EduNote.API.Controllers
 {
+    [Authorize]
     public abstract class BaseController<TEntity, TListEntityDTO, TDetailEntityDTO> : Controller
         where TEntity : class, IEntity
     {
@@ -37,7 +39,7 @@ namespace EduNote.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public virtual IActionResult Get(int id)
+        public virtual IActionResult Get(long id)
         {
             try
             {
@@ -52,7 +54,7 @@ namespace EduNote.API.Controllers
         }
 
         [HttpPost]
-        public virtual IActionResult Post([FromBody]TDetailEntityDTO model)
+        public virtual IActionResult Post([FromBody]TListEntityDTO model)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +74,7 @@ namespace EduNote.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public virtual IActionResult Put(int id, [FromBody]TDetailEntityDTO model)
+        public virtual IActionResult Put(long id, [FromBody]TDetailEntityDTO model)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +98,7 @@ namespace EduNote.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public virtual IActionResult Delete(int id)
+        public virtual IActionResult Delete(long id)
         {
             try
             {

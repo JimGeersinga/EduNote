@@ -25,7 +25,7 @@ namespace EduNote.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public override IActionResult Get(int id)
+        public override IActionResult Get(long id)
         {
             try
             {
