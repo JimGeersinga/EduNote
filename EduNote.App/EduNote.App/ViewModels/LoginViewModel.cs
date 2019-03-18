@@ -27,7 +27,16 @@ namespace EduNote.App.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        private bool formValid = false;
+        public bool FormValid
+        {
+            get => formValid;
+            set
+            {
+                formValid = value;
+                OnPropertyChanged();
+            }
+        }
 
         private Color userNameColor;
         public Color UserNameColor
@@ -44,7 +53,7 @@ namespace EduNote.App.ViewModels
 
         public void Authenticate()
         {
-            if(userName.IsValid)
+            if (userName.IsValid)
             {
                 MoveToSection();
             }
@@ -82,6 +91,7 @@ namespace EduNote.App.ViewModels
 
         private bool ValidateUserName()
         {
+            FormValid = userName.Validate();
             return userName.Validate();
         }
 
