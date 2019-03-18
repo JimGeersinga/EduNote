@@ -4,14 +4,16 @@ using EduNote.API.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EduNote.API.Migrations
 {
     [DbContext(typeof(EduNoteContext))]
-    partial class EduNoteContextModelSnapshot : ModelSnapshot
+    [Migration("20190316224457_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +50,9 @@ namespace EduNote.API.Migrations
                     b.ToTable("Answers");
 
                     b.HasData(
-                        new { Id = 1L, Body = "Yes", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
-                        new { Id = 2L, Body = "What the .. do you mean?", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
-                        new { Id = 3L, Body = "This is correct", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 2L }
+                        new { Id = 1L, Body = "Yes", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
+                        new { Id = 2L, Body = "What the .. do you mean?", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
+                        new { Id = 3L, Body = "This is correct", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 2L }
                     );
                 });
 
@@ -102,7 +104,7 @@ namespace EduNote.API.Migrations
                     b.ToTable("Notes");
 
                     b.HasData(
-                        new { Id = 1L, Body = "A Full guide to ", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, SectionId = 3L, Title = "Dev 3 OOP" }
+                        new { Id = 1L, Body = "A Full guide to ", Created = new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), CreatedById = 1L, SectionId = 3L, Title = "Dev 3 OOP" }
                     );
                 });
 
@@ -160,8 +162,8 @@ namespace EduNote.API.Migrations
                     b.ToTable("Questions");
 
                     b.HasData(
-                        new { Id = 1L, Body = "Confirmed to have a body.", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, SectionId = 1L, Title = "Why is a camel?" },
-                        new { Id = 2L, Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, SectionId = 2L, Title = "Lorem ipsum" }
+                        new { Id = 1L, Body = "Confirmed to have a body.", Created = new DateTime(2019, 3, 16, 22, 44, 56, 983, DateTimeKind.Utc), CreatedById = 1L, SectionId = 1L, Title = "Why is a camel?" },
+                        new { Id = 2L, Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", Created = new DateTime(2019, 3, 16, 22, 44, 56, 983, DateTimeKind.Utc), CreatedById = 1L, SectionId = 2L, Title = "Lorem ipsum" }
                     );
                 });
 
@@ -252,7 +254,7 @@ namespace EduNote.API.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<string>("Salt");
+                    b.Property<string>("Token");
 
                     b.HasKey("Id");
 

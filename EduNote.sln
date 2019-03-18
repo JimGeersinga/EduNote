@@ -9,9 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduNote.App.iOS", "EduNote.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduNote.App", "EduNote.App\EduNote.App\EduNote.App.csproj", "{1E1773F3-7F06-4BC2-913A-55DD7B74EA44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduNote.API", "EduNote.API\EduNote.API.csproj", "{E065E6D7-51D9-4804-BAF4-B5A62E760351}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduNote.API", "EduNote.API\EduNote.API.csproj", "{E065E6D7-51D9-4804-BAF4-B5A62E760351}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduNote.API.Shared", "EduNote.API.Shared\EduNote.API.Shared.csproj", "{F89955A3-1EE5-427B-98C5-E4E160FDEDC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EduNote.API.Shared", "EduNote.API.Shared\EduNote.API.Shared.csproj", "{F89955A3-1EE5-427B-98C5-E4E160FDEDC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduNote.API.EF", "EduNote.API.EF\EduNote.API.EF.csproj", "{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -158,6 +160,30 @@ Global
 		{F89955A3-1EE5-427B-98C5-E4E160FDEDC3}.Release|iPhone.Build.0 = Release|Any CPU
 		{F89955A3-1EE5-427B-98C5-E4E160FDEDC3}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{F89955A3-1EE5-427B-98C5-E4E160FDEDC3}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Release|iPhone.Build.0 = Release|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{1DA2129D-B09A-4939-A236-77BB2BCF7F5B}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
