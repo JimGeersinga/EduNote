@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EduNote.API.EF.Helpers;
 using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
@@ -53,7 +54,7 @@ namespace EduNote.API.Controllers
                 {
                     return BadRequest(new { message = "Email or password is incorrect" });
                 }
-                
+
                 return Ok(user.Token);
             }
             catch (Exception e)
@@ -73,9 +74,8 @@ namespace EduNote.API.Controllers
                     return NotFound();
                 }
 
-                (string hash, string salt) = _userService.HashPassword(model.Password);
-                user.Password = hash;
-                user.Salt = salt;
+                user.Password = Encryption.HashPassword(model.Password);
+
                 _dataService.Update(user);
 
                 return Ok(Mapper.Map<UserDetailDTO>(user));
@@ -96,13 +96,11 @@ namespace EduNote.API.Controllers
                 if (user != null)
                 {
                     return BadRequest(new { message = "This user already exists" });
-                }               
+                }
 
                 user = Mapper.Map<User>(model);
-
-                (string hash, string salt) = _userService.HashPassword(model.Password);
-                user.Password = hash;
-                user.Salt = salt;
+                
+                user.Password = Encryption.HashPassword(model.Password);
 
                 _dataService.Create(user);
 

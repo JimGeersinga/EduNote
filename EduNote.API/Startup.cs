@@ -1,29 +1,24 @@
 ﻿using AutoMapper;
 using EduNote.API.EF;
-using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
+using EduNote.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System;
-using Microsoft.Extensions.Options;
-using EduNote.API.Services;
 
 namespace EduNote.API
 {
@@ -44,7 +39,11 @@ namespace EduNote.API
             services.AddMvc()
                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                .AddJsonOptions(
-                   options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                   options =>
+                   {
+                       options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                       options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                   }
                );
 
             services.AddAutoMapper();
@@ -118,7 +117,7 @@ namespace EduNote.API
         {
             container.RegisterMvcControllers(app);
 
-            var builder = new DbContextOptionsBuilder<EduNoteContext>();
+            DbContextOptionsBuilder<EduNoteContext> builder = new DbContextOptionsBuilder<EduNoteContext>();
             builder.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API"));
             Bootstrapper.Bootstrap(container, builder.Options);
 

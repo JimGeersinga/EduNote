@@ -72,8 +72,7 @@ namespace EduNote.API.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Token = table.Column<string>(nullable: true)
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -285,25 +284,25 @@ namespace EduNote.API.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Created", "Email", "FirstName", "LastName", "Modified", "Password", "Token" },
+                columns: new[] { "Id", "Created", "Email", "FirstName", "LastName", "Modified", "Password" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0968640@hr.nl", "Jim", "Geersinga", null, null, null },
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "simonbesseling@outlook.com", "Simon", "Besseling", null, null, null },
-                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0548643@hr.nl", "Kamiel", "Kruidenier", null, null, null },
-                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0973546@hr.nl", "Mike", "Van Leeuwen", null, null, null },
-                    { 5L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0958245@hr.nl", "Marco", "Peltenburg", null, null, null }
+                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0968640@hr.nl", "Jim", "Geersinga", null, "$2b$10$kAnol6IKmJLj35UJXRETNeI9mrMvPIEzwXtRPKzPgacMa3YlUahvW" },
+                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "simonbesseling@outlook.com", "Simon", "Besseling", null, "$2b$10$Olnpn6Lgzq1Js66Ktc3FROVoRgIwxPgxkdQ9S4Iq5FfJvkXBQxhvO" },
+                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0548643@hr.nl", "Kamiel", "Kruidenier", null, "$2b$10$bjkPjRpVIvj9xFGZ43NEOuTh3I4RCQikoQR0VyekjlQ8yKOYFjM1G" },
+                    { 4L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0973546@hr.nl", "Mike", "Van Leeuwen", null, "$2b$10$71F0Qh4xpZsZzh7qOEJeP.7flWhEEaKuZAQbAsMZU7GgAFn96NxGi" },
+                    { 5L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "0958245@hr.nl", "Marco", "Peltenburg", null, "$2b$10$76fE9y8XtbKLJms6i7HTNuhb6qV9lbU.ClaO3sRb6u3S4Yrt.0g7C" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
                 columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "SectionId", "Title" },
-                values: new object[] { 1L, "Confirmed to have a body.", new DateTime(2019, 3, 16, 22, 44, 56, 983, DateTimeKind.Utc), 1L, null, null, 1L, "Why is a camel?" });
+                values: new object[] { 1L, "Confirmed to have a body.", new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), 1L, null, null, 1L, "Why is a camel?" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
                 columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "SectionId", "Title" },
-                values: new object[] { 2L, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", new DateTime(2019, 3, 16, 22, 44, 56, 983, DateTimeKind.Utc), 1L, null, null, 2L, "Lorem ipsum" });
+                values: new object[] { 2L, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), 1L, null, null, 2L, "Lorem ipsum" });
 
             migrationBuilder.InsertData(
                 table: "Sections",
@@ -315,15 +314,15 @@ namespace EduNote.API.Migrations
                 columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "QuestionId" },
                 values: new object[,]
                 {
-                    { 1L, "Yes", new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), 1L, null, null, 1L },
-                    { 2L, "What the .. do you mean?", new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), 1L, null, null, 1L },
-                    { 3L, "This is correct", new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), 1L, null, null, 2L }
+                    { 1L, "Yes", new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), 1L, null, null, 1L },
+                    { 2L, "What the .. do you mean?", new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), 1L, null, null, 1L },
+                    { 3L, "This is correct", new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), 1L, null, null, 2L }
                 });
 
             migrationBuilder.InsertData(
                 table: "Notes",
                 columns: new[] { "Id", "Body", "Created", "CreatedById", "Modified", "ModifiedById", "SectionId", "Title" },
-                values: new object[] { 1L, "A Full guide to ", new DateTime(2019, 3, 16, 22, 44, 56, 984, DateTimeKind.Utc), 1L, null, null, 3L, "Dev 3 OOP" });
+                values: new object[] { 1L, "A Full guide to ", new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), 1L, null, null, 3L, "Dev 3 OOP" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_CreatedById",
