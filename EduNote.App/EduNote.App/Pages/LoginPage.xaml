@@ -22,7 +22,7 @@
                     </Entry.Triggers>
                 </Entry>
             <Entry Text="{Binding Password, Mode = TwoWay}"/>
-            <Button Clicked="Handle_Clicked" Text="Log in"/>
+            <Button Clicked="Handle_Clicked" IsVisible="{Binding FormValid}" Text="Log in"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
