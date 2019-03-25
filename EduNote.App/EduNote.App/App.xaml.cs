@@ -41,6 +41,8 @@ namespace EduNote.App
             builder.RegisterType<MockSectionGroupService>().As<ISectionGroupService>().SingleInstance();
             builder.RegisterType<MockSectionService>().As<ISectionService>().SingleInstance();
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+            builder.RegisterType<MockQuestionService>().As<IQuestionService>().SingleInstance();
+            builder.RegisterType<MockNoteService>().As<INoteService>().SingleInstance();
             Container = builder.Build();
 
         }
