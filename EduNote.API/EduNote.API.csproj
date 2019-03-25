@@ -5,12 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Factories\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Factories\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Factories\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Factories\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="README.md" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-    <Folder Include="Factories\" />
     <Folder Include="Profiles\" />
   </ItemGroup>
 

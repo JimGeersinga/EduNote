@@ -6,7 +6,6 @@ using EduNote.API.Shared.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 
 
 namespace EduNote.API.Controllers

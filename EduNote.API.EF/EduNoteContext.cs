@@ -126,11 +126,11 @@ namespace EduNote.API.EF
             #endregion QuestionTags
 
             modelBuilder.Entity<User>()
-                .HasData(new User() { Id = 1, FirstName = "Jim", LastName = "Geersinga", Email = "0968640@hr.nl" },
-                         new User() { Id = 2, FirstName = "Simon", LastName = "Besseling", Email = "simonbesseling@outlook.com" },
-                         new User() { Id = 3, FirstName = "Kamiel", LastName = "Kruidenier", Email = "0548643@hr.nl" },
-                         new User() { Id = 4, FirstName = "Mike", LastName = "Van Leeuwen", Email = "0973546@hr.nl" },
-                         new User() { Id = 5, FirstName = "Marco", LastName = "Peltenburg", Email = "0958245@hr.nl" });
+                .HasData(new User() { Id = 1, FirstName = "Jim", LastName = "Geersinga", Email = "0968640@hr.nl", Password = Helpers.Encryption.HashPassword("test")  },
+                         new User() { Id = 2, FirstName = "Simon", LastName = "Besseling", Email = "simonbesseling@outlook.com", Password = Helpers.Encryption.HashPassword("test") },
+                         new User() { Id = 3, FirstName = "Kamiel", LastName = "Kruidenier", Email = "0548643@hr.nl", Password = Helpers.Encryption.HashPassword("test") },
+                         new User() { Id = 4, FirstName = "Mike", LastName = "Van Leeuwen", Email = "0973546@hr.nl", Password = Helpers.Encryption.HashPassword("test") },
+                         new User() { Id = 5, FirstName = "Marco", LastName = "Peltenburg", Email = "0958245@hr.nl", Password = Helpers.Encryption.HashPassword("test") });
 
             modelBuilder.Entity<Section>()
                 .HasData(new Section() { Id = 1, Title = "Year 1", Description = "" },

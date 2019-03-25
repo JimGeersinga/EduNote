@@ -1,4 +1,5 @@
-﻿using EduNote.API.EF.Interfaces;
+﻿using EduNote.API.EF.Helpers;
+using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
 using Microsoft.Extensions.Options;
@@ -29,22 +30,15 @@ namespace EduNote.API.Services
                 return null;
             }
 
-            if (!Hash.Validate(password, user.Salt, user.Password))
+            if (!Encryption.Verify(password, user.Password))
             {
                 return null;
             }
 
-            // authentication successful so generate jwt token
             user.Token = GenerateToken(user);
 
             return user;
-        }
-
-        public (string hash, string salt) HashPassword(string password)
-        {
-            string salt = Salt.Create();
-            return (Hash.Create(password, salt), salt);
-        }
+        }       
 
         public string GenerateToken(User user)
         {

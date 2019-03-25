@@ -1,8 +1,9 @@
-﻿using System;
+﻿using EduNote.API.EF.Interfaces;
+using System;
 
 namespace EduNote.API.EF.Models
 {
-    public class BaseModel
+    public class BaseModel: IEntity
     {
         public long Id { get; set; }
 

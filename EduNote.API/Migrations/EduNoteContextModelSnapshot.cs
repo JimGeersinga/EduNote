@@ -15,7 +15,7 @@ namespace EduNote.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -48,9 +48,9 @@ namespace EduNote.API.Migrations
                     b.ToTable("Answers");
 
                     b.HasData(
-                        new { Id = 1L, Body = "Yes", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
-                        new { Id = 2L, Body = "What the .. do you mean?", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
-                        new { Id = 3L, Body = "This is correct", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 2L }
+                        new { Id = 1L, Body = "Yes", Created = new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
+                        new { Id = 2L, Body = "What the .. do you mean?", Created = new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 1L },
+                        new { Id = 3L, Body = "This is correct", Created = new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), CreatedById = 1L, QuestionId = 2L }
                     );
                 });
 
@@ -102,7 +102,7 @@ namespace EduNote.API.Migrations
                     b.ToTable("Notes");
 
                     b.HasData(
-                        new { Id = 1L, Body = "A Full guide to ", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, SectionId = 3L, Title = "Dev 3 OOP" }
+                        new { Id = 1L, Body = "A Full guide to ", Created = new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), CreatedById = 1L, SectionId = 3L, Title = "Dev 3 OOP" }
                     );
                 });
 
@@ -160,8 +160,8 @@ namespace EduNote.API.Migrations
                     b.ToTable("Questions");
 
                     b.HasData(
-                        new { Id = 1L, Body = "Confirmed to have a body.", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, SectionId = 1L, Title = "Why is a camel?" },
-                        new { Id = 2L, Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", Created = new DateTime(2019, 3, 17, 3, 10, 26, 415, DateTimeKind.Utc), CreatedById = 1L, SectionId = 2L, Title = "Lorem ipsum" }
+                        new { Id = 1L, Body = "Confirmed to have a body.", Created = new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), CreatedById = 1L, SectionId = 1L, Title = "Why is a camel?" },
+                        new { Id = 2L, Body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", Created = new DateTime(2019, 3, 18, 18, 4, 55, 385, DateTimeKind.Utc), CreatedById = 1L, SectionId = 2L, Title = "Lorem ipsum" }
                     );
                 });
 
@@ -252,18 +252,16 @@ namespace EduNote.API.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<string>("Salt");
-
                     b.HasKey("Id");
 
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0968640@hr.nl", FirstName = "Jim", LastName = "Geersinga" },
-                        new { Id = 2L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "simonbesseling@outlook.com", FirstName = "Simon", LastName = "Besseling" },
-                        new { Id = 3L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0548643@hr.nl", FirstName = "Kamiel", LastName = "Kruidenier" },
-                        new { Id = 4L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0973546@hr.nl", FirstName = "Mike", LastName = "Van Leeuwen" },
-                        new { Id = 5L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0958245@hr.nl", FirstName = "Marco", LastName = "Peltenburg" }
+                        new { Id = 1L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0968640@hr.nl", FirstName = "Jim", LastName = "Geersinga", Password = "$2b$10$kAnol6IKmJLj35UJXRETNeI9mrMvPIEzwXtRPKzPgacMa3YlUahvW" },
+                        new { Id = 2L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "simonbesseling@outlook.com", FirstName = "Simon", LastName = "Besseling", Password = "$2b$10$Olnpn6Lgzq1Js66Ktc3FROVoRgIwxPgxkdQ9S4Iq5FfJvkXBQxhvO" },
+                        new { Id = 3L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0548643@hr.nl", FirstName = "Kamiel", LastName = "Kruidenier", Password = "$2b$10$bjkPjRpVIvj9xFGZ43NEOuTh3I4RCQikoQR0VyekjlQ8yKOYFjM1G" },
+                        new { Id = 4L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0973546@hr.nl", FirstName = "Mike", LastName = "Van Leeuwen", Password = "$2b$10$71F0Qh4xpZsZzh7qOEJeP.7flWhEEaKuZAQbAsMZU7GgAFn96NxGi" },
+                        new { Id = 5L, Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "0958245@hr.nl", FirstName = "Marco", LastName = "Peltenburg", Password = "$2b$10$76fE9y8XtbKLJms6i7HTNuhb6qV9lbU.ClaO3sRb6u3S4Yrt.0g7C" }
                     );
                 });
 
