@@ -1,11 +1,12 @@
-﻿using EduNote.App.ViewModels;
+﻿using EduNote.API.Shared.ApiModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EduNote.App.Services
 {
     public interface ISectionService
     {
-        IEnumerable<SectionViewModel> FindForSectionGroup(int id);
-        SectionViewModel Get(int id);
+        Task<IEnumerable<SectionListDTO>> GetRoot();
+        Task<SectionDetailDTO> Get(long id);
     }
 }
