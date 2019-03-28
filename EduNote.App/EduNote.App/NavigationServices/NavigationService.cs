@@ -2,26 +2,27 @@
 using System.Threading.Tasks;
 using EduNote.App.Pages;
 using EduNote.App.Services;
+using Xamarin.Forms;
 
 namespace EduNote.App.NavigationServices
 {
     public class NavigationService : INavigationService
     {
-
+        public async Task ShowRoot()
+        {
+            App.Current.MainPage = new NavigationPage(new SectionListPage(null));
+            App.Page = App.Current.MainPage;
+            await App.Page.Navigation.PopToRootAsync();
+        }
 
         public async Task ShowLogin()
         {
             await App.Page.Navigation.PushAsync(new LoginPage());
         }
 
-        public async Task ShowSection(int id)
+        public async Task ShowSectionList(long? sectionId = null)
         {
-            await App.Page.Navigation.PushAsync(new SectionGroupPage());
-        }
-
-        public async Task ShowSectionGroup(int id)
-        {
-            await App.Page.Navigation.PushAsync(new SectionGroupPage());
+            await App.Page.Navigation.PushAsync(new SectionListPage(sectionId));
         }
     }
 }
