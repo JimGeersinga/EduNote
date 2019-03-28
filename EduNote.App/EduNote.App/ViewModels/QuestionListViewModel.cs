@@ -33,6 +33,7 @@ namespace EduNote.App.ViewModels
         public QuestionListDTO SelectedQuestion { get; set; }
 
         public ICommand ItemTappedCommand { get; set; }
+        public ICommand CreateQuestionCommand { get; set; }
 
         private readonly IQuestionService _questionService;
         private readonly INavigationService _navigationService;
@@ -42,6 +43,7 @@ namespace EduNote.App.ViewModels
             _navigationService = App.Container.Resolve<INavigationService>();
             _questionService = App.Container.Resolve<IQuestionService>();
             ItemTappedCommand = new RelayCommand(ItemTapped);
+            CreateQuestionCommand = new RelayCommand(CreateCommand);
         }
 
         public void LoadQuestions()

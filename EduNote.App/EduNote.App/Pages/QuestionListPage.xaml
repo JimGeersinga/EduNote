@@ -8,7 +8,7 @@
         <c:ItemTappedConverter x:Key="ItemTappedConverter" />
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="MenuItem1" Order="Primary" Text="+" Priority="0"  Command="{Binding CreateCommand}" />
+        <ToolbarItem Name="MenuItem1" Order="Primary" Text="+" Priority="0"  Command="{Binding CreateQuestionCommand}" />
     </ContentPage.ToolbarItems>
     <ListView ItemsSource="{Binding Questions}"
               SelectedItem="{Binding SelectedQuestion}"
