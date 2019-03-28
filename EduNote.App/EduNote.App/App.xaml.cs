@@ -43,6 +43,7 @@ namespace EduNote.App
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<MockQuestionService>().As<IQuestionService>().SingleInstance();
             builder.RegisterType<MockNoteService>().As<INoteService>().SingleInstance();
+
             Container = builder.Build();
 
         }
