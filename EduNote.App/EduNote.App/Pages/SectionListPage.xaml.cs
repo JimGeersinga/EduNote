@@ -27,7 +27,7 @@ namespace EduNote.App.Pages
             {
                 _sectionId = sectionId;
                 ViewModel = new SectionListViewModel();
-                InitializeComponent();
+                InitializeComponent();               
             }
             catch (Exception e)
             {
