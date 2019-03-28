@@ -39,8 +39,10 @@ namespace EduNote.App
         {
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterType<ApiService>().As<IApiService>().SingleInstance();
-            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<MockSectionService>().As<ISectionService>().SingleInstance();
+            builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+            builder.RegisterType<MockQuestionService>().As<IQuestionService>().SingleInstance();
+            builder.RegisterType<MockNoteService>().As<INoteService>().SingleInstance();
             Container = builder.Build();
 
         }
