@@ -24,11 +24,21 @@
     <Folder Include="Behaviours\" />
     <Folder Include="Effects\" />
     <Folder Include="Behaviours\Base\" />
+    <Folder Include="Pages\Questions\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EduNote.API.Shared\EduNote.API.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Validations\ValidationalObject.cs" />
+    <Compile Remove="Pages\Questions\QuestionDetails.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Pages\Questions\QuestionDetails.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Pages\Questions\Details.xaml.cs">
+      <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
