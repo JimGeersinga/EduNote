@@ -24,23 +24,23 @@ namespace EduNote.App.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            var container = new SimpleContainer();
-            container.Register<IDevice>(t => AndroidDevice.CurrentDevice);
-            container.Register<IDisplay>(t => t.Resolve<IDevice>().Display);
+            //var container = new SimpleContainer();
+            //container.Register<IDevice>(t => AndroidDevice.CurrentDevice);
+            //container.Register<IDisplay>(t => t.Resolve<IDevice>().Display);
 
-            try
-            {
-                Xamarin.Forms.DependencyService.Register<EduHttpClient>();
-                DependencyService.Register<MediaPicker>();
-                Resolver.SetResolver(container.GetResolver());
-                global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
+            //try
+            //{
+            //    Xamarin.Forms.DependencyService.Register<EduHttpClient>();
+            //    DependencyService.Register<MediaPicker>();
+            //    Resolver.SetResolver(container.GetResolver());
+            //    global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
 
                 
-            }
-            catch
-            {
+            //}
+            //catch
+            //{
 
-            }
+            //}
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
