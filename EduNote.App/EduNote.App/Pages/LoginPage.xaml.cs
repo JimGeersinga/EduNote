@@ -19,6 +19,9 @@ namespace EduNote.App.Pages
             base.OnAppearing();
             viewModel = new LoginViewModel();
             BindingContext = viewModel;
+
+            // Only for testing purposes
+            //viewModel.Authenticate();
         }
 
 
