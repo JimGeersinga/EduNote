@@ -29,6 +29,7 @@
     <Folder Include="Behaviours\Base\" />
     <Folder Include="ViewModels\Base\" />
     <Folder Include="Api\" />
+    <Folder Include="StaticSettings\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\EduNote.API.Shared\EduNote.API.Shared.csproj" />

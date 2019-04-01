@@ -1,19 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using EduNote.App.Api;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace EduNote.App.Services
 {
     public class ApiService : IApiService
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient = DependencyService.Get<IEduHttpClient>().HttpClient();
         private readonly string _baseUrl;
 
         public ApiService()
         {
-            _baseUrl = "http://localhost:50900/api";
+            _baseUrl = StaticSettings.Settings.BaseUrl;
         }
 
         public async Task<T> Get<T>(string action)
