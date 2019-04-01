@@ -5,7 +5,7 @@ namespace EduNote.App.Services
 {
     public interface ISectionGroupService
     {
-        IEnumerable<SectionGroupViewModel> All();
-        SectionGroupViewModel Get(int id);
+        IEnumerable<SectionListViewModel> All();
+        SectionListViewModel Get(int id);
     }
 }
