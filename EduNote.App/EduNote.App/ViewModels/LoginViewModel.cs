@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Input;
-using Autofac;
+﻿using Autofac;
 using EduNote.App.Services;
 using EduNote.App.Validations;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace EduNote.App.ViewModels
@@ -12,7 +11,7 @@ namespace EduNote.App.ViewModels
 
         public LoginViewModel()
         {
-            navigation = App.Container.Resolve<INavigationService>();
+            _navigation = App.Container.Resolve<INavigationService>();
             userName = new ValidationObject<string>();
             AddValidations();
         }
@@ -27,24 +26,24 @@ namespace EduNote.App.ViewModels
                 OnPropertyChanged();
             }
         }
-        private bool formValid = false;
+        private bool _formValid = false;
         public bool FormValid
         {
-            get => formValid;
+            get => _formValid;
             set
             {
-                formValid = value;
+                _formValid = value;
                 OnPropertyChanged();
             }
         }
 
-        private Color userNameColor;
+        private Color _userNameColor;
         public Color UserNameColor
         {
-            get => userNameColor == null ? Color.Black : userNameColor;
+            get => _userNameColor == null ? Color.Black : _userNameColor;
             set
             {
-                userNameColor = value;
+                _userNameColor = value;
                 OnPropertyChanged();
 
             }
@@ -55,7 +54,7 @@ namespace EduNote.App.ViewModels
         {
             if (userName.IsValid)
             {
-                MoveToSection();
+                GoToRoot();
             }
             else
             {
@@ -63,29 +62,28 @@ namespace EduNote.App.ViewModels
             }
         }
 
-        private string password;
+        private string _password;
         public string Password
         {
-            get => string.IsNullOrWhiteSpace(password) ? "" : password;
+            get => _password;
             set
             {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    password = value;
-                    OnPropertyChanged();
-                }
-
+                _password = value;
+                OnPropertyChanged();
             }
         }
 
-        private INavigationService navigation = null;
+        private readonly INavigationService _navigation;
 
 
-
+        public void GoToRoot()
+        {
+            _navigation.ShowRoot();
+        }
 
         public void MoveToSection()
         {
-            navigation.ShowSection(1);
+            _navigation.ShowSectionList();
         }
 
 

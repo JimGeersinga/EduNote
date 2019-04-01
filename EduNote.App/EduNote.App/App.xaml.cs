@@ -38,7 +38,7 @@ namespace EduNote.App
         private void InitializeIOCContainer()
         {
             ContainerBuilder builder = new ContainerBuilder();
-            builder.RegisterType<MockSectionGroupService>().As<ISectionGroupService>().SingleInstance();
+            builder.RegisterType<ApiService>().As<IApiService>().SingleInstance();
             builder.RegisterType<MockSectionService>().As<ISectionService>().SingleInstance();
             builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterType<MockQuestionService>().As<IQuestionService>().SingleInstance();
