@@ -5,8 +5,8 @@ namespace EduNote.App.Services
 {
     public interface INavigationService
     {
+        Task ShowRoot();
         Task ShowLogin();
-        Task ShowSectionGroup(int id);
-        Task ShowSection(int id);
+        Task ShowSectionList(long? sectionId = null);
     }
 }

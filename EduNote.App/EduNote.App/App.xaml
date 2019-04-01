@@ -5,7 +5,7 @@
              x:Class="EduNote.App.App">
     <Application.Resources>
         <Style x:Key="EntryStyle"
-                   TargetType="{x:Type Entry}">
+                   TargetType="Entry">
                 <Setter Property="TextColor"
                         Value="Black" />
                 <Setter Property="PlaceholderColor"
