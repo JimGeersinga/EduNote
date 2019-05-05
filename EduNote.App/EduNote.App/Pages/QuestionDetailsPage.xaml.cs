@@ -1,15 +1,15 @@
-﻿using EduNote.App.ViewModels;
-using System;
+﻿using System;
+using EduNote.App.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace EduNote.App.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class QuestionListPage : ContentPage
+    public partial class QuestionDetailsPage : ContentPage
     {
-        private QuestionListViewModel _viewModel;
-        public QuestionListViewModel ViewModel
+        private QuestionViewModel _viewModel;
+        public QuestionViewModel ViewModel
         {
             get => _viewModel;
             set
@@ -18,12 +18,15 @@ namespace EduNote.App.Pages
                 BindingContext = _viewModel;
             }
         }
+       
+        private readonly int _questionId;
 
-        public QuestionListPage()
+        public QuestionDetailsPage(int questionId)
         {
             try
             {
-                ViewModel = new QuestionListViewModel();
+                _questionId = questionId;
+                ViewModel = new QuestionViewModel();
                 InitializeComponent();
             }
             catch (Exception e)
@@ -35,7 +38,7 @@ namespace EduNote.App.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ViewModel.LoadQuestions();
+            ViewModel.LoadQuestion(_questionId);
         }
     }
 }
