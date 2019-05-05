@@ -8,5 +8,6 @@ namespace EduNote.App.Services
         Task ShowRoot();
         Task ShowLogin();
         Task ShowSectionList(long? sectionId = null);
+        Task ShowCreateQuestion();
     }
 }

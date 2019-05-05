@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:b="clr-namespace:EduNote.App.Behaviours"
+             xmlns:c="clr-namespace:EduNote.App.Converters"
+             x:Class="EduNote.App.Pages.QuestionListPage">
+    <ContentPage.Resources>
+        <c:ItemTappedConverter x:Key="ItemTappedConverter" />
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" Order="Primary" Text="+" Priority="0"  Command="{Binding CreateQuestionCommand}" />
+    </ContentPage.ToolbarItems>
+    <ListView ItemsSource="{Binding Questions}"
+              SelectedItem="{Binding SelectedQuestion}"
+              CachingStrategy="RecycleElement">
+        <ListView.Behaviors>
+            <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" EventArgsConverter="{StaticResource ItemTappedConverter}" />
+        </ListView.Behaviors>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Title}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+</ContentPage>
