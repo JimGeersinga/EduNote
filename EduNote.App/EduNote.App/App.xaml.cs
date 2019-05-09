@@ -34,8 +34,8 @@ namespace EduNote.App
 
         public static void ShowMainPage()
         {
-            Page = new MainPage();
-
+            App.Current.MainPage = new MainPage();
+            Page = App.Current.MainPage;
         }
 
         protected override void OnSleep()

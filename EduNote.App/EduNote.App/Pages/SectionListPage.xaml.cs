@@ -21,11 +21,11 @@ namespace EduNote.App.Pages
 
         private readonly long? _sectionId;
 
-        public SectionListPage(long? sectionId)
+        public SectionListPage()
         {
             try
             {
-                _sectionId = sectionId;
+                _sectionId = null;
                 ViewModel = new SectionListViewModel();
                 InitializeComponent();               
             }
@@ -39,6 +39,11 @@ namespace EduNote.App.Pages
         {
             base.OnAppearing();
             ViewModel.LoadSections(_sectionId);
+        }
+
+        private void TextCell_Tapped(object sender, EventArgs e)
+        {
+            this.Navigation.PushAsync(new SectionListPage());
         }
     }
 }

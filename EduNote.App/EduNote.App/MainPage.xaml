@@ -4,7 +4,7 @@
              x:Class="EduNote.App.MainPage"
              xmlns:pages="clr-namespace:EduNote.App.Pages">
   <MasterDetailPage.Master>
-    <NavigationPage>
+    <NavigationPage Title="test">
         <x:Arguments>
             <pages:SectionListPage />
         </x:Arguments>
