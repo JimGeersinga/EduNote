@@ -26,6 +26,18 @@ namespace EduNote.App
             // Handle when your app starts
         }
 
+        public static void ShowLoginPage()
+        {
+            Page = new NavigationPage(new LoginPage());
+
+        }
+
+        public static void ShowMainPage()
+        {
+            Page = new MainPage();
+
+        }
+
         protected override void OnSleep()
         {
             // Handle when your app sleeps

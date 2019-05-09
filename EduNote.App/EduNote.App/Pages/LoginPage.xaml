@@ -6,6 +6,7 @@
     x:Class="EduNote.App.Pages.LoginPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="{Binding Message}" />
             <Entry Text="{Binding UserName.Value, Mode = TwoWay}" Style="{StaticResource EntryStyle}" TextColor="{Binding UserNameColor}">
                 <Entry.Behaviors>
                         <behaviors:EventToCommandBehavior

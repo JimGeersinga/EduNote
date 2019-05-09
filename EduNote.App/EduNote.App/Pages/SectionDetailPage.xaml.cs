@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace EduNote.App
+namespace EduNote.App.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : MasterDetailPage
+    public partial class SectionDetailPage : ContentPage
     {
-        public MainPage()
+        public SectionDetailPage()
         {
             InitializeComponent();
         }

@@ -16,6 +16,15 @@ namespace EduNote.App.ViewModels
             AddValidations();
         }
         public ICommand ValidateUserNameCommand => new Command(() => ValidateUserName());
+
+        private string _message;
+        public string Message
+        {
+            get { return _message; }
+            set { _message = value; OnPropertyChanged(); }
+        }
+
+        
         private ValidationObject<string> userName;
         public ValidationObject<string> UserName
         {
@@ -52,13 +61,15 @@ namespace EduNote.App.ViewModels
 
         public void Authenticate()
         {
+            Message = string.Empty;
             if (userName.IsValid)
             {
-                GoToRoot();
+                //GoToRoot();
+                App.ShowMainPage();
             }
             else
             {
-
+                Message = "Inloggen mislukt."; 
             }
         }
 
@@ -76,15 +87,15 @@ namespace EduNote.App.ViewModels
         private readonly INavigationService _navigation;
 
 
-        public void GoToRoot()
-        {
-            _navigation.ShowRoot();
-        }
+        //public void GoToRoot()
+        //{
+        //    _navigation.ShowRoot();
+        //}
 
-        public void MoveToSection()
-        {
-            _navigation.ShowSectionList();
-        }
+        //public void MoveToSection()
+        //{
+        //    _navigation.ShowSectionList();
+        //}
 
 
         private bool ValidateUserName()
