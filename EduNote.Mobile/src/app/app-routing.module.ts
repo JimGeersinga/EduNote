@@ -14,6 +14,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
+  },
+  {
+    path: 'list',
+    loadChildren: './section/detail/detail.module#ListPageModule'
+  },
+  {
+    path: 'section/detail/:id',
+    loadChildren: './section/detail/detail.module#DetailPageModule'
   }
 ];
 
@@ -23,4 +31,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
