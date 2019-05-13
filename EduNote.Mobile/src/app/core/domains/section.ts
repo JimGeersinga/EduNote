@@ -1,4 +1,4 @@
-import { Question } from './Question';
+import { Question } from './question';
 import { Note } from './note';
 
 export class Section {
