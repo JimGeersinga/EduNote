@@ -45,54 +45,17 @@ export class AppComponent {
       this.sectionService.getRootSections().subscribe((sections) => {
         this.selectedSection = null;
         this.sections = sections;
-
-        this.navigate('section');
+        this.navCtlr.navigateRoot(`/home`);
       });
     } else {
       this.sectionService.getSection(sectionId).subscribe((section) => {
         this.selectedSection = section;
         this.previousSectionId = section.parentId;
+        // Add own item aswell
+        section.sections.unshift(section);
         this.sections = section.sections;
-        this.sections.unshift(section);
-
-        this.navigate('section');
+        this.navCtlr.navigateRoot(`/sections/${this.selectedSection.id}`);
       });
     }
-  }
-
-  navigate(page: string) {
-    this.activePage = page;
-
-    switch (page) {
-      case 'section':
-        if (this.selectedSection == null) {
-          this.navCtlr.navigateRoot('/home');
-        } else {
-          this.navCtlr.navigateRoot(`/sections/${this.selectedSection.id}`);
-        }
-        break;
-      case 'questions':
-        if (this.selectedSection == null) {
-          this.navCtlr.navigateRoot(`/questions/overview`);
-        } else {
-          this.navCtlr.navigateRoot(`/sections/${this.selectedSection.id}/questions`);
-        }
-        break;
-      case 'notes':
-        if (this.selectedSection == null) {
-          this.navCtlr.navigateRoot(`/notes/overview`);
-        } else {
-          this.navCtlr.navigateRoot(`/sections/${this.selectedSection.id}/notes`);
-        }
-        break;
-    }
-  }
-
-  loadQuestions() {
-    this.navigate('questions');
-  }
-
-  loadNotes() {
-    this.navigate('notes');
   }
 }

@@ -14,6 +14,7 @@ export class SectionService {
   constructor(public http: HttpClient) {
 
   }
+
   getRootSections(): Observable<Section[]> {
     return this.http.get<Section[]>(`${this.baseUrl}/api/sections/root`)
       .pipe(

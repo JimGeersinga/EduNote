@@ -1,16 +1,14 @@
 <ion-app>
   <ion-split-pane>
     <ion-menu>
+
       <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
+        <ion-toolbar color="primary">
           <ion-title>Menu</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
 
+      <ion-content>
         <ion-list>
           <ion-list-header>
             <ion-button *ngIf="selectedSection !== null" (click)="loadSection(previousSectionId)" expand="block"
@@ -20,29 +18,19 @@
             </ion-button>
             <ion-label *ngIf="selectedSection === null">Kies een groep</ion-label>
           </ion-list-header>
-          <ion-item *ngFor="let section of sections" (click)="loadSection(section.id)"
-            [color]="selectedSection?.id === section.id ? light : dark" [class.active]="selectedSection?.id === section.id">
+          <ion-item tappable *ngFor="let section of sections" (click)="loadSection(section.id)"
+            [color]="selectedSection?.id === section.id ? light : dark"
+            [class.active-item]="selectedSection?.id === section.id">
             <ion-ripple-effect></ion-ripple-effect>
             <ion-label>
               {{section.title}}
             </ion-label>
           </ion-item>
         </ion-list>
-
       </ion-content>
-      <ion-footer no-shadow>
-        <ion-list>
-          <ion-item (click)="loadQuestions()" [class.active]="activePage === 'questions'">
-            <ion-ripple-effect></ion-ripple-effect>
-            VRAGEN
-          </ion-item>
-          <ion-item  (click)="loadNotes()" [class.active]="activePage === 'notes'">
-            <ion-ripple-effect></ion-ripple-effect>
-            NOTITIES
-          </ion-item>
-        </ion-list>
-      </ion-footer>
     </ion-menu>
+
     <ion-router-outlet main></ion-router-outlet>
+
   </ion-split-pane>
 </ion-app>
