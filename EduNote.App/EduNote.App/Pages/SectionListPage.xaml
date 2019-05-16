@@ -9,12 +9,12 @@
     <ListView ItemsSource="{Binding Sections}"
               SelectedItem="{Binding SelectedSection}"
               CachingStrategy="RecycleElement">
-        <ListView.Behaviors>
+        <!--<ListView.Behaviors>
             <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemTappedCommand}" />
-        </ListView.Behaviors>
+        </ListView.Behaviors>-->
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding Title}" Detail="{Binding Description}" />
+                <TextCell Text="{Binding Title}" Detail="{Binding Description}"  Tapped="TextCell_Tapped"/>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

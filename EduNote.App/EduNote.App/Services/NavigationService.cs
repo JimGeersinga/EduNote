@@ -10,7 +10,7 @@ namespace EduNote.App.NavigationServices
     {
         public async Task ShowRoot()
         {
-            App.Current.MainPage = new NavigationPage(new SectionListPage(null));
+            App.Current.MainPage = new NavigationPage(new SectionListPage());
             App.Page = App.Current.MainPage;
             await App.Page.Navigation.PopToRootAsync();
         }
@@ -22,7 +22,7 @@ namespace EduNote.App.NavigationServices
 
         public async Task ShowSectionList(long? sectionId = null)
         {
-            await App.Page.Navigation.PushAsync(new SectionListPage(sectionId));
+            await App.Page.Navigation.PushAsync(new SectionListPage());
         }
     }
 }

@@ -36,6 +36,8 @@ namespace EduNote.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddMvc()
                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                .AddJsonOptions(
@@ -50,6 +52,7 @@ namespace EduNote.API
 
             services.AddDbContext<EduNoteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("EduNoteDatabase"), b => b.MigrationsAssembly("EduNote.API")));
+
 
 
             // configure strongly typed settings objects
@@ -139,6 +142,14 @@ namespace EduNote.API
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader();
+                options.AllowAnyMethod();
+                options.AllowAnyOrigin();
+                options.AllowCredentials();
+            });
 
             app.UseMvc();
 

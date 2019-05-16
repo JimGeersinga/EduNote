@@ -1,0 +1,8 @@
+{
+  "name": "EduNote.Mobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "4b7e0f16"
+}

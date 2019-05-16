@@ -1,0 +1,36 @@
+<ion-split-pane>
+  <ion-menu>
+
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-list-header>
+          <ion-button *ngIf="selectedSection !== null" (click)="loadSection(previousSectionId)" expand="block"
+            fill="outline">
+            <ion-icon slot="start" name="arrow-round-back"></ion-icon>
+            <ion-label>Ga terug</ion-label>
+          </ion-button>
+          <ion-label *ngIf="selectedSection === null">Kies een groep</ion-label>
+        </ion-list-header>
+        <ion-item tappable  *ngFor="let section of sections" (click)="loadSection(section.id)"
+          [color]="selectedSection?.id === section.id ? light : dark"
+          [class.active-item]="selectedSection?.id === section.id">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-label>
+            {{section.title}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+    </ion-content>
+
+  </ion-menu>
+
+  <ion-router-outlet main></ion-router-outlet>
+
+</ion-split-pane>
