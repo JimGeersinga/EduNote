@@ -17,7 +17,7 @@
           </ion-button>
           <ion-label *ngIf="selectedSection === null">Kies een groep</ion-label>
         </ion-list-header>
-        <ion-item tappable  *ngFor="let section of sections" (click)="loadSection(section.id)"
+        <ion-item tappable *ngFor="let section of sections" (click)="loadSection(section.id)"
           [color]="selectedSection?.id === section.id ? light : dark"
           [class.active-item]="selectedSection?.id === section.id">
           <ion-ripple-effect></ion-ripple-effect>
@@ -26,9 +26,15 @@
           </ion-label>
         </ion-item>
       </ion-list>
-
     </ion-content>
-
+    <ion-footer no-shadow>
+        <ion-item tappable (click)="logout()">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-label>
+         Uitloggen
+        </ion-label>
+      </ion-item>
+    </ion-footer>
   </ion-menu>
 
   <ion-router-outlet main></ion-router-outlet>

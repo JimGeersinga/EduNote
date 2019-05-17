@@ -3,6 +3,7 @@ import { Router, RouterEvent } from '@angular/router';
 import { SectionService } from 'src/app/api/section.service';
 import { Section } from 'src/app/core/domains/section';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/api/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,6 +19,7 @@ export class MenuPage implements OnInit {
   constructor(
     private router: Router,
     private navCtlr: NavController,
+    private authService: AuthService,
     private sectionService: SectionService
   ) {
     // this.router.events.subscribe((event: RouterEvent) => {
@@ -36,7 +38,7 @@ export class MenuPage implements OnInit {
       this.sectionService.getRootSections().subscribe((sections) => {
         this.selectedSection = null;
         this.sections = sections;
-        this.navCtlr.navigateRoot(`/home`);
+        this.navCtlr.navigateRoot(`/app/home`);
       });
     } else {
       this.sectionService.getSection(sectionId).subscribe((section) => {
@@ -45,8 +47,12 @@ export class MenuPage implements OnInit {
         // Add own item aswell
         section.sections.unshift(section);
         this.sections = section.sections;
-        this.navCtlr.navigateRoot(`/sections/${this.selectedSection.id}`);
+        this.navCtlr.navigateRoot(`/app/sections/${this.selectedSection.id}`);
       });
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from 'src/app/core/domains/note';
 import { NoteService } from 'src/app/api/note.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -12,11 +13,13 @@ export class ListPage implements OnInit {
   public notes: Note[];
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private noteService: NoteService
   ) { }
 
   ngOnInit() {
-    this.noteService.getNotes().subscribe((notes) => {
+    const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
+    this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
       this.notes = notes;
     });
   }

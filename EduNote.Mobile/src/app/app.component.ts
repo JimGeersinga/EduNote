@@ -1,12 +1,11 @@
-import { Component, NgZone } from '@angular/core';
-
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Observable, of } from 'rxjs';
 import { SectionService } from './api/section.service';
 import { Section } from './core/domains/section';
-import { Navigation, Router } from '@angular/router';
+import { AuthService } from './api/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +23,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private sectionService: SectionService,
+    private authService: AuthService,
     private navCtlr: NavController,
     private router: Router
   ) {
@@ -36,26 +36,13 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    // Get the root sections
-    this.loadSection(null);
-  }
-
-  loadSection(sectionId: number) {
-    if (sectionId == null) {
-      this.sectionService.getRootSections().subscribe((sections) => {
-        this.selectedSection = null;
-        this.sections = sections;
-        this.navCtlr.navigateRoot(`/home`);
-      });
-    } else {
-      this.sectionService.getSection(sectionId).subscribe((section) => {
-        this.selectedSection = section;
-        this.previousSectionId = section.parentId;
-        // Add own item aswell
-        section.sections.unshift(section);
-        this.sections = section.sections;
-        this.navCtlr.navigateRoot(`/sections/${this.selectedSection.id}`);
-      });
-    }
+    this.authService.authenticationState.subscribe(state => {
+      console.log('Program :: authenticationState => State: ', state);
+      if (state) {
+        this.router.navigate(['app']);
+      } else {
+        this.router.navigate(['login']);
+      }
+    });
   }
 }

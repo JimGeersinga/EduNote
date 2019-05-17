@@ -1,18 +1,14 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>EduNote</ion-title>
-  </ion-toolbar>
-</ion-header>
- 
 <ion-content padding> 
   <form #form="ngForm" (ngSubmit)="login(form)">
-    <ion-grid>
+    <ion-grid padding>
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-          <div text-center>
-            <h3>Login</h3>
+          <ion-img src="../assets/logo.png"></ion-img>
+          <div padding text-center>
+            <h3>Inloggen in EduNote</h3>
           </div>
-          <div padding>
+          <span class="error-message" >{{message}}</span>
+          <div class="login-group">
             <ion-item>
               <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
             </ion-item>
@@ -27,5 +23,4 @@
       </ion-row>
     </ion-grid>
   </form>
-  <ion-button expand="block" routerLink="/menu/home">bypass</ion-button>
 </ion-content>

@@ -3,29 +3,35 @@ import { Observable, of } from 'rxjs';
 import { Question } from '../core/domains/question';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
 
-  baseUrl = 'http://localhost:50900';
-
   constructor(public http: HttpClient) {
 
   }
 
   getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>(`${this.baseUrl}/api/questions`)
+    return this.http.get<Question[]>(`${environment.apiUrl}/api/questions`)
       .pipe(
         tap(_ => this.log('fetched questions ')),
         catchError(this.handleError('getQuestions', []))
       );
   }
 
+  getQuestionsBySection(id: number): Observable<Question[]> {
+    return this.http.get<Question[]>(`${environment.apiUrl}/sections/${id}/questions`)
+      .pipe(
+        tap(_ => this.log('fetched questions ')),
+        catchError(this.handleError('getQuestionsBySection', null))
+      );
+  }
+
   getQuestion(id: number): Observable<Question> {
-    // return this.http.get<Question>(`${this.baseUrl}/api/questions/${id}`);
-    return this.http.get<any>(`${this.baseUrl}/api/questions/${id}`)
+    return this.http.get<Question>(`${environment.apiUrl}/api/questions/${id}`)
       .pipe(
         tap(_ => this.log('fetched question ')),
         catchError(this.handleError('getQuestion', null))
