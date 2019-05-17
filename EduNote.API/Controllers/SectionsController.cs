@@ -55,5 +55,35 @@ namespace EduNote.API.Controllers
                 return StatusCode(500, e);
             }
         }
+
+        [HttpGet("{id}/questions")]
+        public IActionResult GetSectionQuestions(long id)
+        {
+            try
+            {
+                IEnumerable<Question> item = _dataService.Get<Question>(x => x.SectionId == id);
+
+                return StatusCode(200, Mapper.Map<List<QuestionListDTO>>(item));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpGet("{id}/notes")]
+        public IActionResult GetSectionNotes(long id)
+        {
+            try
+            {
+                IEnumerable<Note> item = _dataService.Get<Note>(x => x.SectionId == id);
+
+                return StatusCode(200, Mapper.Map<List<NoteDTO>>(item));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace EduNote.API.Controllers
                     return BadRequest(new { message = "Email or password is incorrect" });
                 }
 
-                return Ok(user.Token);
+                return Ok(new { token = user.Token });
             }
             catch (Exception e)
             {

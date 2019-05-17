@@ -20,7 +20,7 @@ const routes: Routes = [
         loadChildren: '../home/home.module#HomePageModule'
       },
       {
-        path: 'sections',
+        path: 'sections/:sectionId',
         loadChildren: '../sections/sections.module#SectionsPageModule'
       }
     ]

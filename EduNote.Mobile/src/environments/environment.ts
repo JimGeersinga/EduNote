@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // apiUrl: 'http://edunote.nl/api'
+  apiUrl: 'http://localhost:50900/api'
 };
 
 /*

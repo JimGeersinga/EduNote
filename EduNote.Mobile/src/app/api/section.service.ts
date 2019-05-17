@@ -3,20 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Section } from '../core/domains/section';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SectionService {
 
-  baseUrl = 'http://localhost:50900';
-
   constructor(public http: HttpClient) {
 
   }
 
   getRootSections(): Observable<Section[]> {
-    return this.http.get<Section[]>(`${this.baseUrl}/api/sections/root`)
+    return this.http.get<Section[]>(`${environment.apiUrl}/sections/root`)
       .pipe(
         tap(_ => this.log('fetched root sections ')),
         catchError(this.handleError('getRootSections', []))
@@ -24,8 +23,7 @@ export class SectionService {
   }
 
   getSection(id: number): Observable<Section> {
-    // return this.http.get<Section>(`${this.baseUrl}/api/sections/${id}`);
-    return this.http.get<any>(`${this.baseUrl}/api/sections/${id}`)
+    return this.http.get<Section>(`${environment.apiUrl}/sections/${id}`)
       .pipe(
         tap(_ => this.log('fetched section ')),
         catchError(this.handleError('getSection', null))
