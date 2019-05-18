@@ -19,6 +19,7 @@
     <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Factories\**" />
     <None Remove="wwwroot\**" />
+    <None Remove="entrypoint.sh" />
   </ItemGroup>
 
   <ItemGroup>

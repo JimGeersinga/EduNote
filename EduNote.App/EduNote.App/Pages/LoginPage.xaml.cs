@@ -8,7 +8,6 @@ namespace EduNote.App.Pages
     public partial class LoginPage : ContentPage
     {
         private LoginViewModel viewModel;
-
         public LoginPage()
         {
             InitializeComponent();
@@ -21,10 +20,8 @@ namespace EduNote.App.Pages
             BindingContext = viewModel;
 
             // Only for testing purposes
-            viewModel.Authenticate();
+            //viewModel.Authenticate();
         }
-
-
 
         void Handle_Clicked(object sender, System.EventArgs e)
         {
