@@ -3,8 +3,9 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
+import { tap, catchError, filter, map } from 'rxjs/operators';
+import { AuthResult } from '../core/domains/authResult';
 
 
 const TOKEN_KEY = 'auth-token';
@@ -14,7 +15,8 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AuthService {
 
-  authenticationState = new BehaviorSubject(false);
+  private authenticationState = new BehaviorSubject(false);
+  private tokenSubject: ReplaySubject<AuthResult> = new ReplaySubject<AuthResult>(1);
 
   constructor(
     private plt: Platform,
@@ -26,21 +28,23 @@ export class AuthService {
     });
   }
 
+
+  public get authorizationHeader(): Observable<string> {
+    return this.tokenSubject.pipe(
+      map((token) => (token ? `Bearer ${token.token}` : null))
+    );
+  }
+
+
   checkToken() {
-    this.storage.get(TOKEN_KEY).then((res: any) => {
-      if (res) {
-        this.authenticationState.next(true);
-      }
-    });
+    this.getToken();
   }
 
   login(email: string, password: string) {
-    return this.http.post(`${environment.apiUrl}/users/authenticate`, { email, password })
+    return this.http.post<AuthResult>(`${environment.apiUrl}/users/authenticate`, { email, password })
       .pipe(
         tap(data => {
-          this.storage.set(TOKEN_KEY, `Bearer ${data}`).then(() => {
-            this.authenticationState.next(true);
-          });
+          this.setToken(data);
         }),
         catchError(this.handleError('Login'))
       );
@@ -54,6 +58,23 @@ export class AuthService {
   isAuthenticated() {
     console.log('Is Authenticated => ', this.authenticationState.value);
     return this.authenticationState.value;
+  }
+
+  private getToken() {
+    this.storage.get(TOKEN_KEY).then((res: any) => {
+      if (res) {
+        this.authenticationState.next(true);
+        this.tokenSubject.next(res);
+        return of(res);
+      }
+    });
+  }
+
+  private setToken(token: AuthResult) {
+    this.storage.set(TOKEN_KEY, token).then(() => {
+      this.authenticationState.next(true);
+      this.tokenSubject.next(token);
+    });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

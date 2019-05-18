@@ -1,14 +1,14 @@
-<ion-content padding> 
-  <form #form="ngForm" (ngSubmit)="login(form)">
-    <ion-grid padding>
-      <ion-row color="primary" justify-content-center>
-        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-          <ion-img src="../assets/logo.png"></ion-img>
+<ion-content padding>
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-card style="min-width: 150px;" padding>
+        <form #form="ngForm" (ngSubmit)="login(form)">
+
           <div padding text-center>
             <h3>Inloggen in EduNote</h3>
           </div>
           <span class="error-message" >{{message}}</span>
-          <div class="login-group">
+          <div class="login-group" padding>
             <ion-item>
               <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
             </ion-item>
@@ -17,10 +17,10 @@
             </ion-item>
           </div>
           <div padding>
-            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block" >Login</ion-button>
+            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+        </form>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
 </ion-content>
