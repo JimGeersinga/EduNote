@@ -84,7 +84,7 @@ namespace EduNote.API
             {
                 c.SwaggerDoc("v1", new Info
                 {
-                    Version = "V1",
+                    Version = "V1.1",
                     Title = "EduNote API",
                     Description = "Documentation for the Edunote system.",
                     Contact = new Contact() { Name = "Jim Geersinga", Email = "j.geersinga@outlook.com" }

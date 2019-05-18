@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace EduNote.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public abstract class BaseController<TEntity, TListEntityDTO, TDetailEntityDTO> : Controller
         where TEntity : class, IEntity
     {
