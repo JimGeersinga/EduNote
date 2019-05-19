@@ -26,6 +26,9 @@ export class DetailPage implements OnInit {
     // this.sectionService.getSection(sectionId).subscribe((section) => {
     //   this.section = section;
     // });
+    this.section = new Section();
+    this.section.title = "Mijn eerste sectie";
+    this.section.description = "Hello world!";
     this.questions = [ new Question(), new Question(), new Question() ];
     this.questions[0].title = "Vraag 1"
     this.questions[1].title = "Vraag 2"
