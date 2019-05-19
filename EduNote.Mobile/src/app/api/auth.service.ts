@@ -15,8 +15,8 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AuthService {
 
-  private authenticationState = new BehaviorSubject(false);
-  private tokenSubject: ReplaySubject<AuthResult> = new ReplaySubject<AuthResult>(1);
+  public authenticationState = new BehaviorSubject(false);
+  public tokenSubject: ReplaySubject<AuthResult> = new ReplaySubject<AuthResult>(1);
 
   constructor(
     private plt: Platform,
