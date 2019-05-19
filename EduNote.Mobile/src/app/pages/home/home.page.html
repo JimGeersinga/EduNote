@@ -20,7 +20,7 @@
         </ion-card-header>
         <ion-card-content>
           <ion-list>
-              <ion-item *ngFor="let question of questions">
+              <ion-item *ngFor="let question of questions" (click)="loadQuestion(question.id)">
                 <ion-label>{{question.title}}</ion-label>
               </ion-item>
           </ion-list>
@@ -32,7 +32,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-list>
-                <ion-item *ngFor="let note of notes">
+                <ion-item *ngFor="let note of notes" (click)="loadNote(note.id)">
                   <ion-label>{{note.title}}</ion-label>
                 </ion-item>
             </ion-list>
