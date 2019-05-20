@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: './pages/menu/menu.module#MenuPageModule'
   }
 ];
