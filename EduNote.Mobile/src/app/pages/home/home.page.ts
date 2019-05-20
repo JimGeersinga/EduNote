@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from 'src/app/core/domains/note';
 import { Question } from 'src/app/core/domains/question';
+import { UserService } from 'src/app/api/user.service';
+import { User } from 'src/app/core/domains/user';
 
 @Component({
   selector: 'app-home',
@@ -12,19 +14,25 @@ export class HomePage implements OnInit {
   public questions: Question[]; 
   public notes: Note[]; 
 
-  constructor() { 
-
+  constructor(public userService: UserService) 
+  {  
   }
 
   ngOnInit() {
-    this.questions = [ new Question(), new Question(), new Question() ];
-    this.questions[0].title = "Vraag 1"
-    this.questions[1].title = "Vraag 2"
-    this.questions[2].title = "Vraag 3"
+    this.userService.getCurrent().subscribe((user) => {
+    this.questions = user.questions;
+    this.notes = user.notes;
+    
+    // Test data in geval van kapotte api
+    // this.questions = [ new Question(), new Question(), new Question() ];
+    // this.questions[0].title = "Vraag 1";
+    // this.questions[1].title = "Vraag 2"
+    // this.questions[2].title = "Vraag 3"
 
-    this.notes = [ new Note(), new Note(), new Note() ];
-    this.notes[0].title = "Notitie 1"
-    this.notes[1].title = "Notitie 2"
-    this.notes[2].title = "Notitie 3"
+    // this.notes = [ new Note(), new Note(), new Note() ];
+    // this.notes[0].title = "Notitie 1"
+    // this.notes[1].title = "Notitie 2"
+    // this.notes[2].title = "Notitie 3"
+  });
   }
 }
