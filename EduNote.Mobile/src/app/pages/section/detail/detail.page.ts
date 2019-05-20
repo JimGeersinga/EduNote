@@ -22,22 +22,11 @@ export class DetailPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
-    // this.sectionService.getSection(sectionId).subscribe((section) => {
-    //   this.section = section;
-    // });
-    this.section = new Section();
-    this.section.title = "Mijn eerste sectie";
-    this.section.description = "Hello world!";
-    this.questions = [ new Question(), new Question(), new Question() ];
-    this.questions[0].title = "Vraag 1"
-    this.questions[1].title = "Vraag 2"
-    this.questions[2].title = "Vraag 3"
-
-    this.notes = [ new Note(), new Note(), new Note() ];
-    this.notes[0].title = "Notitie 1"
-    this.notes[1].title = "Notitie 2"
-    this.notes[2].title = "Notitie 3"
+    const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
+    this.sectionService.getSection(sectionId).subscribe((section) => {
+      this.section = section;
+      this.notes = section.notes;
+      this.questions = section.questions;
+    });
   }
-
 }
