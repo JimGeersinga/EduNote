@@ -23,20 +23,11 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item>
-          <ion-label>Pokémon Yellow</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Mega Man X</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>The Legend of Zelda</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Pac-Man</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Super Mario World</ion-label>
+        <ion-item tappable *ngFor="let question of questions">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-label>
+            {{question.title}}
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -48,21 +39,12 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item>
-          <ion-label>Pokémon Yellow</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Mega Man X</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>The Legend of Zelda</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Pac-Man</ion-label>
-        </ion-item>
-        <ion-item>
-          <ion-label>Super Mario World</ion-label>
-        </ion-item>
+          <ion-item tappable *ngFor="let note of notes">
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-label>
+                {{note.title}}
+              </ion-label>
+            </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>

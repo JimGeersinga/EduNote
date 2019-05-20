@@ -29,6 +29,24 @@ export class QuestionService {
         catchError(this.handleError('getQuestionsBySection', null))
       );
   }
+  post(question:Question) {
+    return this.http.post<Question>(`${environment.apiUrl}/questions`, { question })
+      .pipe(
+        tap(_ => {this.log('posted question ')
+        }),
+        catchError(this.handleError('postQuestion'))
+      );
+  }
+
+  put(question:Question) {
+    return this.http.put<Question>(`${environment.apiUrl}/questions`, { question })
+      .pipe(
+        tap(_ => {this.log('putQuestion ')
+        }),
+        catchError(this.handleError('putQuestion'))
+      );
+  }
+
 
   getQuestion(id: number): Observable<Question> {
     return this.http.get<Question>(`${environment.apiUrl}/api/questions/${id}`)
