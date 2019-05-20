@@ -10,5 +10,5 @@ export class EditNoteComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
+  
 }

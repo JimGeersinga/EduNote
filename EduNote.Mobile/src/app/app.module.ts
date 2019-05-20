@@ -11,10 +11,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthenticationTokenInterceptor } from './api/auth-token.interceptor';
+import { EditNoteComponent } from './pages/note/edit/edit-note/edit-note.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,EditNoteComponent],
+  entryComponents: [EditNoteComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

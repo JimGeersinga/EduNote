@@ -1,3 +1,17 @@
-<p>
-  edit-note works!
-</p>
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-title>Nieuwe notitie</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-input placeholder="Titel van de notitie" color="primary"></ion-input>
+  <ion-item>
+      <ion-textarea placeholder="Tekst van de notitie" color="primary"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" color="primary">Opslaan</ion-button>
+    <ion-button expand="block" color="primary" fill="outline" (click)="dismissModal()">Annuleren</ion-button>
+
+</ion-content>
