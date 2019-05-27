@@ -9,13 +9,13 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let question of questions">
-      <ion-label>{{question.title}}</ion-label>
+    <ion-item *ngFor="let question of questions" (click)="loadQuestion(question.id)">
+      <ion-label >{{question.title}} <small>{{question.creatorName}}</small></ion-label>
     </ion-item>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="createQuestion()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

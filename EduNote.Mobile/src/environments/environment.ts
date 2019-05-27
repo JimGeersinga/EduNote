@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://edunote.nl/api'
-  // apiUrl: 'http://localhost:50900/api'
+  //apiUrl: 'http://edunote.nl/api'
+  apiUrl: 'http://localhost:5000/api'
 };
 
 /*

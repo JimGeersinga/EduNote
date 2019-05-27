@@ -13,6 +13,7 @@ import { SectionService } from 'src/app/api/section.service';
 export class DetailPage implements OnInit {
 
   section: Section;
+
   public questions: Question[]; 
   public notes: Note[]; 
 
@@ -25,8 +26,22 @@ export class DetailPage implements OnInit {
     const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
     this.sectionService.getSection(sectionId).subscribe((section) => {
       this.section = section;
-      this.notes = section.notes;
-      this.questions = section.questions;
+
+      let nleng = this.section.notes.length;
+      this.notes = section.notes.slice(0,nleng >= 5? 5 : nleng);
+      if(this.notes == null)
+      {
+        this.notes = new Array();
+      }
+
+      let qleng = this.section.questions.length;
+      this.questions = section.questions.slice(0,qleng >= 5? 5 : qleng);
+      if(this.questions == null)
+      {
+        this.questions = new Array();
+      }
+      console.log(section);
+
     });
   }
 }

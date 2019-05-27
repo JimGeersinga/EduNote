@@ -38,6 +38,7 @@ namespace EduNote.API.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 return StatusCode(500, e);
             }
         }
