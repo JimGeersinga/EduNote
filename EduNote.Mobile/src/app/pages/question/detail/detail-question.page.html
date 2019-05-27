@@ -1,8 +1,20 @@
 
 
   <div padding text-center>
-    <h3>Details</h3>
+    <h3>Details
+        <div *ngIf="question.createdById == user.id">
+            <ion-toolbar>
+                <ion-buttons slot="secondary">
+                    <ion-button fill="solid" (click)="loadForm()">
+                      Bewerken
+                    </ion-button>
+                  </ion-buttons>
+              </ion-toolbar>
+        </div>
+    </h3>
+    
   </div>
+  
   <span class="error-message" >{{message}}</span>
   <div class="login-group" padding>
     <ion-item>

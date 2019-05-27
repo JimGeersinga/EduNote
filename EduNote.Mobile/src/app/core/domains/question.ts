@@ -9,4 +9,5 @@ export class Question {
     createdById: number;
     creatorName: string;
     answers:Answer[];
+    hasAnswers:boolean = this.answers.length > 0;
 }

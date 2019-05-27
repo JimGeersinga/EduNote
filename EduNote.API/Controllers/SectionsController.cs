@@ -47,7 +47,9 @@ namespace EduNote.API.Controllers
             try
             {
                 Section item = _dataService.GetById<Section>(id, x => x.Sections, x => x.Questions, x => x.Notes);
-
+                item.Questions.ToList().ForEach(x => {
+                    x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
+                });
                 return StatusCode(200, Mapper.Map<SectionDetailDTO>(item));
             }
             catch (Exception e)
@@ -61,11 +63,11 @@ namespace EduNote.API.Controllers
         {
             try
             {
-                IEnumerable<Question> item = _dataService.Get<Question>(x => x.SectionId == id);
+                IEnumerable<Question> item = _dataService.Get<Question>(x => x.SectionId == id, includes:x=> x.Answers);
                 item.ToList().ForEach(x => {
                     x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
                 });
-                var items = Mapper.Map<List<QuestionListDTO>>(item);
+                var items = Mapper.Map<List<QuestionDetailDTO>>(item);
                 return StatusCode(200,items);
             }
             catch (Exception e)
@@ -80,7 +82,9 @@ namespace EduNote.API.Controllers
             try
             {
                 IEnumerable<Note> item = _dataService.Get<Note>(x => x.SectionId == id);
-
+                item.ToList().ForEach(x => {
+                    x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
+                });
                 return StatusCode(200, Mapper.Map<List<NoteDTO>>(item));
             }
             catch (Exception e)

@@ -12,5 +12,6 @@ namespace EduNote.API.Shared.ApiModels
         public int SectionId { get; set; }
         public int CreatedById { get; set; }
         public int ModifiedById { get; set; }
+        public string CreatorName { get; set; }
     }
 }
