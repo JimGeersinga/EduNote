@@ -3,6 +3,7 @@ import { Question } from 'src/app/core/domains/question';
 import { QuestionService } from 'src/app/api/question.service';
 import { UserService } from 'src/app/api/user.service';
 import { User } from 'src/app/core/domains/user';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-question',
@@ -21,7 +22,8 @@ export class EditQuestionComponent implements OnInit {
   user:User;
   constructor(
     questionService:QuestionService,
-    userService:UserService
+    userService:UserService,
+    public viewCtrl: ModalController
   ) { 
     this.questionService = questionService;
     this.userService = userService;
@@ -62,6 +64,7 @@ export class EditQuestionComponent implements OnInit {
         this.message = error.error.message
       });
     }
+    this.viewCtrl.dismiss();
     
   }
 

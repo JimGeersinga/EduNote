@@ -9,8 +9,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let question of questions">
-      <ion-label>{{question.title}}</ion-label>
+    <ion-item *ngFor="let question of questions" (click)="loadQuestion(question.id)">
+      <ion-label >{{question.title}} <small>{{question.creatorName}}</small></ion-label>
     </ion-item>
   </ion-list>
 

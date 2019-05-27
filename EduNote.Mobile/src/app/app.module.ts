@@ -13,10 +13,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AuthenticationTokenInterceptor } from './api/auth-token.interceptor';
 import { FormsModule } from '@angular/forms';
 import { EditQuestionComponent } from './pages/question/edit/edit-question/edit-question.component';
+import { DetailQuestionComponent } from './pages/question/detail/detail-question.page';
 
 @NgModule({
-  declarations: [AppComponent, EditQuestionComponent],
-  entryComponents: [EditQuestionComponent],
+  declarations: [AppComponent, EditQuestionComponent, DetailQuestionComponent],
+  entryComponents: [EditQuestionComponent,DetailQuestionComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -4,6 +4,7 @@ import { QuestionService } from 'src/app/api/question.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, ModalController } from '@ionic/angular';
 import { EditQuestionComponent } from '../edit/edit-question/edit-question.component';
+import { DetailQuestionComponent } from '../detail/detail-question.page';
 
 @Component({
   selector: 'app-list',
@@ -38,6 +39,25 @@ export class ListPage implements OnInit {
         'section': this.sectionId
       }
     });
-    m.present();
+    m.present().finally(()=>{
+      this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
+        this.questions = questions;
+      });
+    });
+  }
+
+  async loadQuestion(id:number)
+  {
+    let m = await this.modalCtlr.create({
+      component: DetailQuestionComponent,
+      componentProps:{
+        'id': id
+      }
+    });
+    m.present().finally(()=>{
+      this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
+        this.questions = questions;
+      });
+    });
   }
 }

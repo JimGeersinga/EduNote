@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace EduNote.API.Controllers
 {
@@ -62,8 +62,11 @@ namespace EduNote.API.Controllers
             try
             {
                 IEnumerable<Question> item = _dataService.Get<Question>(x => x.SectionId == id);
-
-                return StatusCode(200, Mapper.Map<List<QuestionListDTO>>(item));
+                item.ToList().ForEach(x => {
+                    x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
+                });
+                var items = Mapper.Map<List<QuestionListDTO>>(item);
+                return StatusCode(200,items);
             }
             catch (Exception e)
             {

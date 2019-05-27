@@ -15,7 +15,7 @@ export class QuestionService {
   }
 
   getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>(`${environment.apiUrl}/api/questions`)
+    return this.http.get<Question[]>(`${environment.apiUrl}/questions`)
       .pipe(
         tap(_ => this.log('fetched questions ')),
         catchError(this.handleError('getQuestions', []))
@@ -30,7 +30,15 @@ export class QuestionService {
       );
   }
   post(question:Question) {
-    return this.http.post<Question>(`${environment.apiUrl}/questions`, { question })
+    console.log(question);
+    return this.http.post<Question>(`${environment.apiUrl}/questions`, { 
+      'Body': question.body, 
+      'SectionId':question.sectionId, 
+      'Title':question.title, 
+      'CreatedById':question.createdById,
+      'Id':question.id,
+      'Created':question.created
+    })
       .pipe(
         tap(_ => {this.log('posted question ')
         }),
@@ -39,7 +47,12 @@ export class QuestionService {
   }
 
   put(question:Question) {
-    return this.http.put<Question>(`${environment.apiUrl}/questions`, { question })
+    return this.http.put<Question>(`${environment.apiUrl}/questions`, { 'Body': question.body, 
+    'SectionId':question.sectionId, 
+    'Title':question.title, 
+    'CreatedById':question.createdById,
+    'Id':question.id,
+    'Created':question.created })
       .pipe(
         tap(_ => {this.log('putQuestion ')
         }),
@@ -49,7 +62,7 @@ export class QuestionService {
 
 
   getQuestion(id: number): Observable<Question> {
-    return this.http.get<Question>(`${environment.apiUrl}/api/questions/${id}`)
+    return this.http.get<Question>(`${environment.apiUrl}/questions/${id}`)
       .pipe(
         tap(_ => this.log('fetched question ')),
         catchError(this.handleError('getQuestion', null))
