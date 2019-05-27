@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Note } from 'src/app/core/domains/note';
 import { NoteService } from 'src/app/api/note.service';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { EditNoteComponent } from '../edit/edit-note/edit-note.component';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +16,8 @@ export class ListPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -22,5 +25,17 @@ export class ListPage implements OnInit {
     this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
       this.notes = notes;
     });
+  }
+
+  async addNote() {
+    const modal = await this.modalCtrl.create({
+      component: EditNoteComponent,
+      componentProps: {
+        'id': null,
+        'isEdit': false
+      }
+    });
+    await modal.present();
+    //const data = await modal.onDidDismiss();
   }
 }
