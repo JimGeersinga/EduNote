@@ -33,7 +33,7 @@ export class ListPage implements OnInit {
 
   async addNote()
   {
-    console.log('open question');
+    console.log('open note');
     let m = await this.modalCtrl.create({
       component: EditNoteComponent,
       componentProps:{
@@ -67,10 +67,10 @@ export class ListPage implements OnInit {
     m.onDidDismiss().then(()=>{
       this.noteService.getNotesBySection(this.sectionId).subscribe((notes) => {
         this.notes = [];
-        notes.forEach(question => {
-          this.notes.push(question);
+        notes.forEach(note => {
+          this.notes.push(note);
         });
-        console.log('questions pushed');
+        console.log('notes pushed');
       });
     });
   }
