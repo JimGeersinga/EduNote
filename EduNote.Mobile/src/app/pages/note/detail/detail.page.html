@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>detail</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<div padding text-center>
+    <h3>Details</h3>
+  </div>
+  <span class="error-message" >{{message}}</span>
+  <div class="login-group" padding>
+    <ion-item>
+      <ion-label>{{note.title}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{note.body}}</ion-label>
+    </ion-item>
+</div>

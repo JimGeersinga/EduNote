@@ -53,6 +53,39 @@ export class NoteService {
     };
   }
 
+  post(note:Note) {
+    console.log(note);
+    return this.http.post<Note>(`${environment.apiUrl}/notes`, { 
+      'Body': note.body, 
+      'SectionId':note.sectionId, 
+      'Title':note.title, 
+      'CreatedById':note.createdById,
+      'ModifiedById':note.createdById,
+      'Id':note.id,
+      'Created':note.created
+    })
+      .pipe(
+        tap(_ => {
+          this.log('posted note ');
+        }),
+        catchError(this.handleError('postNote'))
+      );
+  }
+
+  put(note:Note) {
+    return this.http.put<Note>(`${environment.apiUrl}/notes`, { 'Body': note.body, 
+    'SectionId':note.sectionId, 
+    'Title':note.title, 
+    'CreatedById':note.createdById,
+    'Id':note.id,
+    'Created':note.created })
+    .pipe(
+        tap(_ => {this.log('putNote ')
+        }),
+        catchError(this.handleError('putNote'))
+      );
+  }
+
   private log(message: string) {
     console.log(message);
   }

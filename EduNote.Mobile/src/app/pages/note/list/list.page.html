@@ -9,8 +9,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let note of notes">
-      <ion-label>{{note.title}}</ion-label>
+    <ion-item *ngFor="let note of notes" (click)="loadNote(note.id)">
+      <ion-label>{{note.title}} <small>{{note.creatorName}} {{note.created | date: 'hh:mm dd-MM-yyyy'}}</small></ion-label>
     </ion-item>
   </ion-list>
 
