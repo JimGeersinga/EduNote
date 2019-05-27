@@ -53,12 +53,14 @@ export class ListPage implements OnInit {
 
   async loadQuestion(id:number)
   {
+    console.log('yo');
     let m = await this.modalCtlr.create({
       component: DetailQuestionComponent,
       componentProps:{
         'id': id
       }
     });
+    m.present();
     m.onDidDismiss().then(()=>{
       this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
         this.questions = [];
