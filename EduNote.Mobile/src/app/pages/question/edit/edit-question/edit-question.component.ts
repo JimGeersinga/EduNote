@@ -40,12 +40,14 @@ export class EditQuestionComponent implements OnInit {
     }
   }
 
-  send(form){
+  async send(form){
     console.log(this.user);
     
     if(this.isEdit){
-      this.questionService.put(this.question).subscribe(data=>{
+      await this.questionService.put(this.question).subscribe(data=>{
         console.log('putted');
+        this.viewCtrl.dismiss();
+        console.log('Dismissed');
       },
       error=>{
         this.message = error.error.message
@@ -57,14 +59,18 @@ export class EditQuestionComponent implements OnInit {
       this.question.id = 0;
       this.question.createdById = this.user.id;
       console.log(this.question);
-      this.questionService.post(this.question).subscribe(data=>{
+      let ctrl = this.viewCtrl;
+      await this.questionService.post(this.question).subscribe(data=>{
         console.log('posted');
+        this.viewCtrl.dismiss();
+        console.log('Dismissed');
       },
       error=>{
         this.message = error.error.message
       });
     }
-    this.viewCtrl.dismiss();
+    
+    
     
   }
 

@@ -44,14 +44,15 @@ export class DetailQuestionComponent implements OnInit {
     this.answer.id = 0;
     this.answer.createdBy = this.user.id;
     this.answer.questionId = this.question.id;
+    let ctrl = this.viewCtrl;
     this.answerService.post(this.answer).subscribe(data=>{
-      console.log('posted');
+      ctrl.dismiss();
     },
     error=>{
       this.message = error.error.message
     });
     console.log(this.answer);
-    this.viewCtrl.dismiss();
+    
   }
 
 }
