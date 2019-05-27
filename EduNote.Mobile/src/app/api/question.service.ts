@@ -40,7 +40,8 @@ export class QuestionService {
       'Created':question.created
     })
       .pipe(
-        tap(_ => {this.log('posted question ')
+        tap(_ => {
+          this.log('posted question ');
         }),
         catchError(this.handleError('postQuestion'))
       );
@@ -53,7 +54,7 @@ export class QuestionService {
     'CreatedById':question.createdById,
     'Id':question.id,
     'Created':question.created })
-      .pipe(
+    .pipe(
         tap(_ => {this.log('putQuestion ')
         }),
         catchError(this.handleError('putQuestion'))

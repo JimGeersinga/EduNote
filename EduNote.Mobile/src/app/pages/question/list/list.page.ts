@@ -39,9 +39,14 @@ export class ListPage implements OnInit {
         'section': this.sectionId
       }
     });
-    m.present().finally(()=>{
+    m.present();
+    m.onDidDismiss().then(()=>{
       this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
-        this.questions = questions;
+        this.questions = [];
+        questions.forEach(question => {
+          this.questions.push(question);
+        });
+        console.log('questions pushed');
       });
     });
   }
@@ -54,9 +59,13 @@ export class ListPage implements OnInit {
         'id': id
       }
     });
-    m.present().finally(()=>{
+    m.onDidDismiss().then(()=>{
       this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
-        this.questions = questions;
+        this.questions = [];
+        questions.forEach(question => {
+          this.questions.push(question);
+        });
+        console.log('questions pushed');
       });
     });
   }
