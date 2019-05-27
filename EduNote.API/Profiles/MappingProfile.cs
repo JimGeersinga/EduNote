@@ -11,8 +11,12 @@ namespace EduNote.API.Profiles
             CreateMap<Group, GroupDetailDTO>().ReverseMap();
             CreateMap<Group, GroupListDTO>().ReverseMap();
             CreateMap<Note, NoteDTO>().ReverseMap();
-            CreateMap<Question, QuestionDetailDTO>().ReverseMap();
-            CreateMap<Question, QuestionListDTO>().ReverseMap();
+            CreateMap<Question, QuestionDetailDTO>().ForMember(
+                    dest => dest.CreatorName, opt => opt.MapFrom(src => src.CreatedBy.FirstName + " " + src.CreatedBy.LastName)
+                ).ReverseMap();
+            CreateMap<Question, QuestionListDTO>().ForMember(
+                    dest=> dest.CreatorName, opt => opt.MapFrom(src=>src.CreatedBy.FirstName + " " + src.CreatedBy.LastName)
+                ).ReverseMap();
             CreateMap<Section, SectionDetailDTO>().ReverseMap();
             CreateMap<Section, SectionListDTO>().ReverseMap();
             CreateMap<Tag, TagDTO>().ReverseMap();

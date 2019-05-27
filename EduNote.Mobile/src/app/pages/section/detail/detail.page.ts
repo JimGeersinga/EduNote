@@ -4,8 +4,6 @@ import { Question } from 'src/app/core/domains/question';
 import { Note } from 'src/app/core/domains/note';
 import { ActivatedRoute } from '@angular/router';
 import { SectionService } from 'src/app/api/section.service';
-import { Question } from 'src/app/core/domains/question';
-import { Note } from 'src/app/core/domains/note';
 
 @Component({
   selector: 'app-detail',
