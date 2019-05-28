@@ -61,7 +61,6 @@ namespace EduNote.API.Controllers
                 try
                 {
                     TEntity item = Mapper.Map<TEntity>(model);
-
                     return StatusCode(200, _dataService.Create(item));
                 }
                 catch (Exception e)
@@ -69,7 +68,6 @@ namespace EduNote.API.Controllers
                     return StatusCode(500, e);
                 }
             }
-
             return StatusCode(400);
         }
 
@@ -81,11 +79,8 @@ namespace EduNote.API.Controllers
                 try
                 {
                     TEntity item = _dataService.GetById<TEntity>(id);
-
                     Mapper.Map(model, item);
-
                     _dataService.Update(item);
-
                     return StatusCode(200, _dataService.Update(item));
                 }
                 catch (Exception e)

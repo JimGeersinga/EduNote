@@ -6,6 +6,7 @@ import { QuestionService } from 'src/app/api/question.service';
 import { UserService } from 'src/app/api/user.service';
 import { AnswerService } from 'src/app/api/anwer.service';
 import { ModalController } from '@ionic/angular';
+import { ListPage } from '../list/list.page';
 
 @Component({
   selector: 'app-detail',
@@ -14,6 +15,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class DetailQuestionComponent implements OnInit {
   @Input() id:number;
+  @Input() parent:any;
   answer:Answer;
   answers:Answer[]; 
   question:Question;
@@ -31,6 +33,7 @@ export class DetailQuestionComponent implements OnInit {
       this.answerService = answerService;
       this.question = new Question();
       this.answer = new Answer();
+      this.user = new User();
 
     }
 
@@ -53,6 +56,13 @@ export class DetailQuestionComponent implements OnInit {
     });
     console.log(this.answer);
     
+  }
+
+  loadForm(){
+    console.log('to form');
+    this.viewCtrl.dismiss();
+    this.parent.editQuestion(this.question.id);
+
   }
 
 }

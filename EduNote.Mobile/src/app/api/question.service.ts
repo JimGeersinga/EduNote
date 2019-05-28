@@ -48,7 +48,7 @@ export class QuestionService {
   }
 
   put(question:Question) {
-    return this.http.put<Question>(`${environment.apiUrl}/questions`, { 'Body': question.body, 
+    return this.http.put<Question>(`${environment.apiUrl}/questions/${question.id}`, { 'Body': question.body, 
     'SectionId':question.sectionId, 
     'Title':question.title, 
     'CreatedById':question.createdById,

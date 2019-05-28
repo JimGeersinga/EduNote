@@ -23,7 +23,7 @@
     <ion-card-content>
       <ion-list>
           <ion-item *ngFor="let question of questions" (click)="loadQuestion(question.id)">
-            <ion-label>{{question.title}}</ion-label>
+            <ion-label>{{question.title}} <small>{{question.creatorName}} {{question.created | date : 'HH:mm dd-MM-yyyy'}}</small></ion-label>
           </ion-item>
       </ion-list>
     </ion-card-content>

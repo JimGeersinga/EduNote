@@ -35,6 +35,7 @@ export class EditQuestionComponent implements OnInit {
     if(this.id > 0){
       await this.questionService.getQuestion(this.id).subscribe(data=>this.question = data);
       this.isEdit = true;
+      this.section = this.question.sectionId;
     }else{
       this.question = new Question();
     }
