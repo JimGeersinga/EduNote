@@ -11,6 +11,7 @@ namespace EduNote.API.EF.Models
         public string Password { get; set; }
         [NotMapped]
         public string Token { get; set; }
+        public string RefreshToken { get; set; }
 
         public ICollection<UserGroups> UserGroups { get; set; }
         public ICollection<Note> NotesCreated { get; set; }

@@ -41,8 +41,30 @@ namespace EduNote.API.Services
             {
                 new Claim(ClaimTypes.Name, user.Email.ToString())
             });
+            user.RefreshToken = GenerateRefreshToken();
 
             return user;
+        }
+
+        public void UpdateRefreshToken(string email, string refreshToken)
+        {
+            User user = _dataService.GetFirst<User>(x => x.Email == email);
+            if (user == null)
+            {
+                return;
+            }
+            user.RefreshToken = refreshToken;
+            _dataService.Update(user);
+        }
+
+        public string GetRefreshToken(string email)
+        {
+            User user = _dataService.GetFirst<User>(x => x.Email == email);
+            if (user == null)
+            {
+                return null;
+            }
+            return user.RefreshToken;
         }
 
         public string GenerateToken(IEnumerable<Claim> claims)
