@@ -12,7 +12,8 @@ const routes: Routes = [
     path: 'app',
     canActivate: [AuthGuard],
     loadChildren: './pages/menu/menu.module#MenuPageModule'
-  }
+  },
+  { path: 'account', loadChildren: './pages/account/account.module#AccountPageModule' }
 ];
 
 @NgModule({

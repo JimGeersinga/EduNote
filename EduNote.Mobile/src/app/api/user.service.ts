@@ -30,6 +30,17 @@ export class UserService {
       );
   }
 
+  updatePassword(id: number, password: string): Observable<User> {
+    console.log('updating password');
+    return this.http.post<User>(`${environment.apiUrl}/Users/${id}/updatepassword`, {
+      'password': password
+    })
+      .pipe(
+        tap(_ => this.log('updated password')),
+        catchError(this.handleError('updatePassword', null))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
