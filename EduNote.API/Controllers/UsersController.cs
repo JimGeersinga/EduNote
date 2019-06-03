@@ -33,12 +33,13 @@ namespace EduNote.API.Controllers
         {
             try
             {
-                User item = _dataService.GetById<User>(Convert.ToInt64(User.Identity.Name));
+                User item = _dataService.GetById<User>(Convert.ToInt64(User.Identity.Name), x => x.QuestionsCreated, x => x.NotesCreated, x => x.AnswersCreated, x => x.UserGroups);
 
                 return StatusCode(200, Mapper.Map<UserDetailDTO>(item));
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 return StatusCode(500, e);
             }
         }

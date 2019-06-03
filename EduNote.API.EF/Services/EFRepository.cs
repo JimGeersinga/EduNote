@@ -89,9 +89,9 @@ namespace EduNote.API.EF.Services
             {
                 if (entry.State == EntityState.Added)
                 {
-                    ((BaseModel)entry.Entity).Created = DateTime.UtcNow;
+                    ((BaseModel)entry.Entity).Created = DateTime.Now;
                 }
-                ((BaseModel)entry.Entity).Modified = DateTime.UtcNow;
+                ((BaseModel)entry.Entity).Modified = DateTime.Now;
             }
         }
     }

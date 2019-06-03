@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://edunote.nl/api'
-  // apiUrl: 'http://localhost:50900/api'
+  //apiUrl: 'https://localhost:5001/api'
 };
 
 /*

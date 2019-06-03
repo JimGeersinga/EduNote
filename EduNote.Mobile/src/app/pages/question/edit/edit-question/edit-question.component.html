@@ -1,0 +1,18 @@
+<form #form="ngForm"  (ngSubmit)="send(form)">
+
+    <div padding text-center>
+      <h3>Vraag aanmaken</h3>
+    </div>
+    <span class="error-message" >{{message}}</span>
+    <div class="login-group" padding>
+      <ion-item>
+        <ion-input name="title" type="text" placeholder="Title" [(ngModel)]="question.title" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input name="body" type="text" placeholder="Body" [(ngModel)]="question.body" required></ion-input>
+      </ion-item>
+    </div>
+    <div padding>
+      <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Opslaan</ion-button>
+    </div>
+  </form>

@@ -15,7 +15,7 @@ export class QuestionService {
   }
 
   getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>(`${environment.apiUrl}/api/questions`)
+    return this.http.get<Question[]>(`${environment.apiUrl}/questions`)
       .pipe(
         tap(_ => this.log('fetched questions ')),
         catchError(this.handleError('getQuestions', []))
@@ -29,9 +29,41 @@ export class QuestionService {
         catchError(this.handleError('getQuestionsBySection', null))
       );
   }
+  post(question:Question) {
+    console.log(question);
+    return this.http.post<Question>(`${environment.apiUrl}/questions`, { 
+      'Body': question.body, 
+      'SectionId':question.sectionId, 
+      'Title':question.title, 
+      'CreatedById':question.createdById,
+      'Id':question.id,
+      'Created':question.created
+    })
+      .pipe(
+        tap(_ => {
+          this.log('posted question ');
+        }),
+        catchError(this.handleError('postQuestion'))
+      );
+  }
+
+  put(question:Question) {
+    return this.http.put<Question>(`${environment.apiUrl}/questions/${question.id}`, { 'Body': question.body, 
+    'SectionId':question.sectionId, 
+    'Title':question.title, 
+    'CreatedById':question.createdById,
+    'Id':question.id,
+    'Created':question.created })
+    .pipe(
+        tap(_ => {this.log('putQuestion ')
+        }),
+        catchError(this.handleError('putQuestion'))
+      );
+  }
+
 
   getQuestion(id: number): Observable<Question> {
-    return this.http.get<Question>(`${environment.apiUrl}/api/questions/${id}`)
+    return this.http.get<Question>(`${environment.apiUrl}/questions/${id}`)
       .pipe(
         tap(_ => this.log('fetched question ')),
         catchError(this.handleError('getQuestion', null))
