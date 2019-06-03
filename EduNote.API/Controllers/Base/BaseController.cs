@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EduNote.API.EF.Interfaces;
+using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -107,6 +108,11 @@ namespace EduNote.API.Controllers
             {
                 return StatusCode(500, e);
             }
+        }
+
+        protected User GetAuthenticatedUser()
+        {
+            return _dataService.GetFirst<User>(x => x.Email == User.Identity.Name);
         }
     }
 }
