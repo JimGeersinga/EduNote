@@ -10,8 +10,8 @@ import { User } from 'src/app/core/domains/user';
   templateUrl: './edit-note.component.html',
   styleUrls: ['./edit-note.component.scss'],
 })
-export class EditNoteComponent implements OnInit {
 
+export class EditNoteComponent implements OnInit {
   @Input() id:number;
   @Input() section:number;
   @Input() isEdit:boolean;
@@ -31,11 +31,11 @@ export class EditNoteComponent implements OnInit {
   }
 
   async ngOnInit() {
-        await this.userService.getCurrent().subscribe(data=>{this.user = data});
-  if(this.id > 0){
-    await this.noteService.getNote(this.id).subscribe(data=>this.note = data);
-    this.isEdit = true;
-  }else{
+    await this.userService.getCurrent().subscribe(data=>{this.user = data});
+    if(this.id > 0){
+      await this.noteService.getNote(this.id).subscribe(data=>this.note = data);
+      this.isEdit = true;
+  } else {
     this.note = new Note();
   }
 }

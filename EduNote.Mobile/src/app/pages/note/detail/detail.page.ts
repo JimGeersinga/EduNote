@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
+
 export class DetailPage implements OnInit {
   @Input() id:number;
   note:Note;
@@ -29,5 +30,9 @@ export class DetailPage implements OnInit {
     await this.userService.getCurrent().subscribe(data=>{this.user = data});
     await this.noteService.getNote(this.id).subscribe(data=>{this.note = data});
     console.log(this.note);
+  }
+
+  async clickedClose() {
+    this.viewCtrl.dismiss();
   }
 }

@@ -1,12 +1,13 @@
-<div padding text-center>
-    <h3>Details</h3>
-  </div>
-  <span class="error-message" >{{message}}</span>
-  <div class="login-group" padding>
-    <ion-item>
-      <ion-label>{{note.title}}</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>{{note.body}}</ion-label>
-    </ion-item>
-</div>
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="secondary">
+          <ion-button (click)="clickedClose()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    <ion-title>{{note.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  {{note.body}}
+</ion-content>
