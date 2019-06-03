@@ -8,6 +8,7 @@ using EduNote.API.Shared.ApiModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 
 namespace EduNote.API.Controllers
@@ -44,7 +45,7 @@ namespace EduNote.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]Auth model)
+        public IActionResult Authenticate(Auth model)
         {
             try
             {
@@ -63,8 +64,39 @@ namespace EduNote.API.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpPost("Refresh")]
+        public IActionResult Refresh(string token, string refreshToken)
+        {
+            try
+            {
+                var principal = _userService.GetPrincipalFromExpiredToken(token);
+                var username = principal.Identity.Name;
+                var savedRefreshToken = _userService.GetRefreshToken(username); //retrieve the refresh token from a data store
+                if (savedRefreshToken != refreshToken)
+                {
+                    throw new SecurityTokenException("Invalid refresh token");
+                }
+
+                var newJwtToken = _userService.GenerateToken(principal.Claims);
+                var newRefreshToken = _userService.GenerateRefreshToken();
+                DeleteRefreshToken(username, refreshToken);
+                SaveRefreshToken(username, newRefreshToken);
+
+                return new ObjectResult(new
+                {
+                    token = newJwtToken,
+                    refreshToken = newRefreshToken
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
         [HttpPost("{id}/updatepassword")]
-        public IActionResult UpdatePassword(long id, [FromBody]PasswordDTO model)
+        public IActionResult UpdatePassword(long id, PasswordDTO model)
         {
             try
             {
@@ -99,7 +131,7 @@ namespace EduNote.API.Controllers
                 }
 
                 user = Mapper.Map<User>(model);
-                
+
                 user.Password = Encryption.HashPassword(model.Password);
 
                 _dataService.Create(user);

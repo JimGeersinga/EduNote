@@ -1,4 +1,5 @@
 ﻿using EduNote.API.EF.Models;
+using System.Security.Claims;
 
 namespace EduNote.API.Services
 {
@@ -6,5 +7,9 @@ namespace EduNote.API.Services
     {
         User Authenticate(string email, string password);
         string GenerateToken(User user);
+
+        string GenerateRefreshToken();
+
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     }
 }
