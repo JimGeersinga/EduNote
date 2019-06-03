@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/api/user.service';
 import { ToastController } from '@ionic/angular';
+import { User } from 'src/app/core/domains/user';
 
 @Component({
   selector: 'app-account',
@@ -9,26 +10,20 @@ import { ToastController } from '@ionic/angular';
 })
 export class AccountPage implements OnInit {
 
-  public id: number;
-  public email: string;
-  public firstName: string;
-  public lastName: string;
-  public password: string;
+  public user : User;
+  public password : string;
 
   constructor(public userService: UserService, public toastController: ToastController) {
   }
 
   ngOnInit() {
     this.userService.getCurrent().subscribe((user) => {
-      this.id = user.id;
-      this.email = user.email;
-      this.firstName = user.firstName;
-      this.lastName = user.lastName;
+      this.user = user;
     });
   }
 
   async updatePassword() {
-    this.userService.updatePassword(this.id, this.password).subscribe(async (user) => {
+    this.userService.updatePassword(this.user.id, this.password).subscribe(async (user) => {
       this.password = "";
       const toast = await this.toastController.create({
         message: 'Uw wachtwoord is bijgewerkt',
