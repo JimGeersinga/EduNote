@@ -4,6 +4,8 @@ import { NoteService } from 'src/app/api/note.service';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { EditNoteComponent } from '../edit/edit-note/edit-note.component';
+import { UserService } from 'src/app/api/user.service';
+import { User } from 'src/app/core/domains/user';
 
 @Component({
   selector: 'app-list',
@@ -13,11 +15,13 @@ import { EditNoteComponent } from '../edit/edit-note/edit-note.component';
 export class ListPage implements OnInit {
 
   public notes: Note[];
+  public userId : number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private noteService: NoteService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    public userService: UserService
   ) { }
 
   ngOnInit() {
@@ -36,6 +40,24 @@ export class ListPage implements OnInit {
       }
     });
     await modal.present();
-    //const data = await modal.onDidDismiss();
+  }
+
+  async filterNotesByUser(){
+    const sectionId = + this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
+
+    this.userService.getCurrent().subscribe((user) => {
+      this.userId = user.id;
+    });
+
+    this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
+      this.notes = notes.filter(note => note.createdById == this.userId);
+    });
+  }
+
+  async removeFilters(){
+    const sectionId = + this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
+    this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
+      this.notes = notes;
+    });
   }
 }
