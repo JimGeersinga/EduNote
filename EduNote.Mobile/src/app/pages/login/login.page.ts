@@ -14,7 +14,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -24,7 +25,11 @@ export class LoginPage implements OnInit {
     this.message = null;
     this.authService.login(form.value.email, form.value.password)
       .subscribe(
-        data => console.log('Login success => ', data),
+        data => {
+          console.log('Login success => ', data);
+          this.router.navigateByUrl('app');
+          console.log('route to APP');
+        },
         error => {
           console.log('Login failed => ', error);
           this.message = error.error.message;

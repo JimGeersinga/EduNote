@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { Router, RouterEvent, ActivatedRoute } from '@angular/router';
 import { SectionService } from 'src/app/api/section.service';
 import { Section } from 'src/app/core/domains/section';
 import { NavController } from '@ionic/angular';
@@ -17,28 +17,25 @@ export class MenuPage implements OnInit {
   sections: any;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private navCtlr: NavController,
     private authService: AuthService,
     private sectionService: SectionService
-  ) {
-    // this.router.events.subscribe((event: RouterEvent) => {
-    //   if (event && event.url) {
-    //     this.selectedPath = event.url;
-    //   }
-    // });
-  }
+  ) {}
 
   ngOnInit() {
-    this.loadSection(null);
+    const sectionId = +this.activatedRoute.snapshot.paramMap.get('sectionId');
+    this.loadSection(sectionId);
   }
 
   loadSection(sectionId: number) {
-    if (sectionId == null) {
+    if (sectionId === null || sectionId === 0) {
       this.sectionService.getRootSections().subscribe((sections) => {
         this.selectedSection = null;
         this.sections = sections;
         this.navCtlr.navigateRoot(`/app/home`);
+        console.log('navigate root to /app/home');
       });
     } else {
       this.sectionService.getSection(sectionId).subscribe((section) => {
@@ -48,6 +45,7 @@ export class MenuPage implements OnInit {
         section.sections.unshift(section);
         this.sections = section.sections;
         this.navCtlr.navigateRoot(`/app/sections/${this.selectedSection.id}`);
+        console.log(`navigate root to /app/sections/${this.selectedSection.id}`);
       });
     }
   }

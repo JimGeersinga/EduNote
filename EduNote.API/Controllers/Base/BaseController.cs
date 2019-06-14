@@ -24,20 +24,7 @@ namespace EduNote.API.Controllers
             _appSettings = appSettings.Value;
         }
 
-        [HttpGet]
-        public virtual IActionResult Get()
-        {
-            try
-            {
-                IEnumerable<TEntity> items = _dataService.GetAll<TEntity>();
-
-                return Ok(Mapper.Map<List<TListEntityDTO>>(items));
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e);
-            }
-        }
+        
 
         [HttpGet("{id}")]
         public virtual IActionResult Get(long id)

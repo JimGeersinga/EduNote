@@ -19,7 +19,7 @@ import { DetailPage } from '../detail/detail.page';
 export class ListPage implements OnInit {
 
   public notes: Note[];
-  public userId : number;
+  public userId: number;
 
   private sectionId: number;
 
@@ -38,43 +38,39 @@ export class ListPage implements OnInit {
     });
   }
 
-  async addNote()
-  {
-    console.log('open note');
-    let m = await this.modalCtrl.create({
+  async addNote() {
+    const m = await this.modalCtrl.create({
       component: EditNoteComponent,
-      componentProps:{
-        'id': 0,
-        'isEdit': false,
-        'section': this.sectionId
+      componentProps: {
+        id: 0,
+        isEdit: false,
+        section: this.sectionId
       }
     });
-    m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.noteService.getNotesBySection(this.sectionId).subscribe((notes) => {
         this.notes = [];
         notes.forEach(note => {
           this.notes.push(note);
         });
-        console.log('notes pushed');
       });
     });
+    await m.present();
   }
 
-  async loadNote(id:number)
-  {
+  async loadNote(id: number) {
     console.log('yo');
-    let m = await this.modalCtrl.create({
+    const modal = await this.modalCtrl.create({
       component: DetailPage,
-      componentProps:{
-        'id': id
+      componentProps: {
+        id
       }
     });
 
     await modal.present();
   }
 
-  async filterNotesByUser(){
+  async filterNotesByUser() {
     const sectionId = + this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
 
     this.userService.getCurrent().subscribe((user) => {
@@ -82,26 +78,14 @@ export class ListPage implements OnInit {
     });
 
     this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
-      this.notes = notes.filter(note => note.createdById == this.userId);
+      this.notes = notes.filter(note => note.createdById === this.userId);
     });
   }
 
-  async removeFilters(){
+  async removeFilters() {
     const sectionId = + this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
     this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
       this.notes = notes;
-
-    m.present();
-    m.onDidDismiss().then(()=>{
-      this.noteService.getNotesBySection(this.sectionId).subscribe((notes) => {
-        this.notes = [];
-        notes.forEach(note => {
-          this.notes.push(note);
-        });
-        console.log('notes pushed');
-      });
-
     });
   }
-
 }

@@ -35,14 +35,5 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
-    this.authService.authenticationState.subscribe(state => {
-      console.log('Program :: authenticationState => State: ', state);
-      if (state) {
-        this.router.navigate(['app']);
-      } else {
-        this.router.navigate(['login']);
-      }
-    });
   }
 }

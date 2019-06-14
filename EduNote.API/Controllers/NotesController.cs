@@ -24,7 +24,7 @@ namespace EduNote.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string search, bool selfOnly)
+        public IActionResult Get(string search = null, bool selfOnly = false)
         {
             try
             {

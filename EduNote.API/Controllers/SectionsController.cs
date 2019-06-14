@@ -26,6 +26,21 @@ namespace EduNote.API.Controllers
         }
 
         [HttpGet]
+        public virtual IActionResult Get()
+        {
+            try
+            {
+                IEnumerable<Section> items = _dataService.GetAll<Section>();
+
+                return Ok(Mapper.Map<List<SectionListDTO>>(items));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
+        }
+
+        [HttpGet]
         [Route("root")]
         public virtual IActionResult Root()
         {
