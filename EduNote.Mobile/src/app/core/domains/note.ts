@@ -6,4 +6,5 @@ export class Note {
     sectionId: number;
     createdById: number;
     modifiedById: number;
+    creatorName: string;
 }

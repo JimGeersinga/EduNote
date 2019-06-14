@@ -6,14 +6,13 @@
     <ion-title>Notities</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
+  <ion-searchbar showCancelButton cancelButtonText="Custom Cancel"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let note of notes">
-      <ion-label>{{note.title}}</ion-label>
+    <ion-item *ngFor="let note of notes" (click)="loadNote(note.id)">
+      <ion-label>{{note.title}} <small>{{note.creatorName}} {{note.created | date: 'hh:mm dd-MM-yyyy'}}</small></ion-label>
     </ion-item>
   </ion-list>
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addNote()">
       <ion-icon name="add"></ion-icon>

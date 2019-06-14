@@ -17,10 +17,12 @@ import { EditNoteComponent } from './pages/note/edit/edit-note/edit-note.compone
 import { FormsModule } from '@angular/forms';
 import { EditQuestionComponent } from './pages/question/edit/edit-question/edit-question.component';
 import { DetailQuestionComponent } from './pages/question/detail/detail-question.page';
+import { DetailPage } from './pages/note/detail/detail.page';
+import { DetailPageModule } from './pages/note/detail/detail.module';
 
 @NgModule({
-  declarations: [AppComponent, EditQuestionComponent, DetailQuestionComponent,EditNoteComponent],
-  entryComponents: [EditQuestionComponent,DetailQuestionComponent,EditNoteComponent],
+  declarations: [AppComponent, EditQuestionComponent, DetailQuestionComponent,EditNoteComponent,DetailPage],
+  entryComponents: [EditQuestionComponent,DetailQuestionComponent,EditNoteComponent,DetailPage],
   imports: [
     BrowserModule,
     HttpClientModule,
