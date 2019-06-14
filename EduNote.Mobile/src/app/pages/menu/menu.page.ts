@@ -30,7 +30,7 @@ export class MenuPage implements OnInit {
   }
 
   loadSection(sectionId: number) {
-    if (sectionId === null || sectionId === 0) {
+    if (sectionId === undefined || sectionId === null || sectionId === 0) {
       this.sectionService.getRootSections().subscribe((sections) => {
         this.selectedSection = null;
         this.sections = sections;

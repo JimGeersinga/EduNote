@@ -8,6 +8,6 @@ export class Question {
     sectionId: number;
     createdById: number;
     creatorName: string;
-    answers:Answer[];
-    hasAnswers:boolean = this.answers.length > 0;
+    answers: Answer[];
+    hasAnswers: boolean = this.answers != null && this.answers.length > 0;
 }
