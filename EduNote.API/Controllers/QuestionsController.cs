@@ -31,7 +31,7 @@ namespace EduNote.API.Controllers
                 User user = GetAuthenticatedUser();
                 IEnumerable<Question> items = _dataService.Get<Question>(x =>
                     (!selfOnly || x.CreatedById == user.Id) &&
-                    (string.IsNullOrWhiteSpace(search) || x.Title == search));
+                    (string.IsNullOrWhiteSpace(search) || x.Title.ToLower().Contains(search.ToLower())));
 
                 return Ok(Mapper.Map<List<QuestionListDTO>>(items));
             }

@@ -7,7 +7,10 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar showCancelButton cancelButtonText="Custom Cancel"></ion-searchbar>
+  <ion-searchbar showCancelButton cancelButtonText="Custom Cancel"
+    (ionInput)="onSearchInput($event)"
+    (ionCancel)="onSearchCancel($event)"
+  ></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let note of notes" (click)="loadNote(note.id)">
       <ion-label>{{note.title}} <small>{{note.creatorName}} {{note.created | date: 'hh:mm dd-MM-yyyy'}}</small></ion-label>

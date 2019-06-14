@@ -23,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  //declarations: [DetailQuestionComponent]
+  // declarations: [DetailQuestionComponent]
 })
-export class DetailPageModule {}
+export class DetailPageModule { }

@@ -27,8 +27,7 @@ export class LoginPage implements OnInit {
       .subscribe(
         data => {
           console.log('Login success => ', data);
-          this.router.navigateByUrl('app');
-          console.log('route to APP');
+          this.router.navigateByUrl('app/home');
         },
         error => {
           console.log('Login failed => ', error);

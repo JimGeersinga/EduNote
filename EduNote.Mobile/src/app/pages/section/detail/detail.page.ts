@@ -16,14 +16,14 @@ import { DetailQuestionComponent } from '../../question/detail/detail-question.p
 export class DetailPage implements OnInit {
 
   section: Section;
-  sectionId:number;
-  public questions: Question[]; 
-  public notes: Note[]; 
-  
+  sectionId: number;
+  public questions: Question[];
+  public notes: Note[];
+
   constructor(
     public activatedRoute: ActivatedRoute,
     public sectionService: SectionService,
-    private modalCtlr : ModalController
+    private modalCtlr: ModalController
   ) { }
 
   ngOnInit() {
@@ -31,56 +31,51 @@ export class DetailPage implements OnInit {
     this.loadSection();
   }
 
-  loadSection()
-  {
+  loadSection() {
     this.sectionService.getSection(this.sectionId).subscribe((section) => {
-        this.section = section;
-        let nleng = this.section.notes.length;
-        this.notes = this.section.notes.slice(0,nleng >= 5? 5 : nleng);
-        if(this.notes == null)
-        {
-          this.notes = new Array();
-        }
+      this.section = section;
+      const nleng = this.section.notes.length;
+      this.notes = this.section.notes.slice(0, nleng >= 5 ? 5 : nleng);
+      if (this.notes == null) {
+        this.notes = new Array();
+      }
 
-        let qleng = this.section.questions.length;
-        this.questions = this.section.questions.slice(0,qleng >= 5? 5 : qleng);
-        if(this.questions == null)
-        {
-          this.questions = new Array();
-        }
-        console.log(this.section);
-      });
+      const qleng = this.section.questions.length;
+      this.questions = this.section.questions.slice(0, qleng >= 5 ? 5 : qleng);
+      if (this.questions == null) {
+        this.questions = new Array();
+      }
+      console.log(this.section);
+    });
   }
 
 
 
-  async editQuestion(id:number)
-  {
-    let m = await this.modalCtlr.create({
+  async editQuestion(id: number) {
+    const m = await this.modalCtlr.create({
       component: EditQuestionComponent,
-      componentProps:{
-        'id': id,
-        'isEdit': true
+      componentProps: {
+        id,
+        isEdit: true
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.loadSection();
     });
   }
 
 
-  async loadQuestion(id:number)
-  {
-    let m = await this.modalCtlr.create({
+  async loadQuestion(id: number) {
+    const m = await this.modalCtlr.create({
       component: DetailQuestionComponent,
-      componentProps:{
-        'id': id,
-        'parent':this
+      componentProps: {
+        id,
+        parent: this
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.loadSection();
     });
   }

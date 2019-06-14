@@ -21,6 +21,8 @@ export class ListPage implements OnInit {
   public notes: Note[];
   public userId: number;
 
+  public searchText: string;
+
   private sectionId: number;
 
   constructor(
@@ -34,6 +36,20 @@ export class ListPage implements OnInit {
     const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
     this.sectionId = sectionId;
     this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
+      this.notes = notes;
+    });
+  }
+
+  onSearchInput(ev: any) {
+    this.searchText = ev.target.value;
+    this.noteService.getNotesBySection(this.sectionId, this.searchText).subscribe((notes) => {
+      this.notes = notes;
+    });
+  }
+
+  onSearchCancel() {
+    this.searchText = '';
+    this.noteService.getNotesBySection(this.sectionId, this.searchText).subscribe((notes) => {
       this.notes = notes;
     });
   }
@@ -75,10 +91,10 @@ export class ListPage implements OnInit {
 
     this.userService.getCurrent().subscribe((user) => {
       this.userId = user.id;
-    });
 
-    this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
-      this.notes = notes.filter(note => note.createdById === this.userId);
+      this.noteService.getNotesBySection(sectionId).subscribe((notes) => {
+        this.notes = notes.filter(note => note.createdById === this.userId);
+      });
     });
   }
 

@@ -17,35 +17,36 @@ import { User } from 'src/app/core/domains/user';
 export class ListPage implements OnInit {
   public questions: Question[];
   public completeQuestions: Question[];
-  onlyOwn:boolean;
-  sectionId:number;
-  search:string = '';
-  currentUser:User;
+  onlyOwn: boolean;
+  sectionId: number;
+  currentUser: User;
+  search: any = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private questionService: QuestionService,
     private userService: UserService,
-    private modalCtlr: ModalController  
-    ) { }
+    private modalCtlr: ModalController
+  ) { }
   async ngOnInit() {
     const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
     this.sectionId = sectionId;
-    await this.userService.getCurrent().subscribe(user=>{
-      this.currentUser =user;
+    await this.userService.getCurrent().subscribe(user => {
+      this.currentUser = user;
     });
     this.reload();
   }
-  onChange()
-  {
-    if(this.search.length == 0)
-    {
-      this.questions = this.completeQuestions.filter(x=>x.createdById == this.currentUser.id || !this.onlyOwn);
-    }else{
-      this.questions = this.completeQuestions.filter(x=>(x.createdById == this.currentUser.id || !this.onlyOwn) && (x.title.toLowerCase().includes(this.search.toLowerCase()) || x.creatorName.toLowerCase().includes(this.search.toLowerCase())));
+
+  onChange() {
+    if (this.search.length === 0) {
+      this.questions = this.completeQuestions.filter(x => x.createdById === this.currentUser.id || !this.onlyOwn);
+    } else {
+      this.questions = this.completeQuestions.filter(x =>
+        (x.createdById === this.currentUser.id || !this.onlyOwn) &&
+        (x.title.toLowerCase().includes(this.search.toLowerCase()) || x.creatorName.toLowerCase().includes(this.search.toLowerCase())));
     }
   }
-  reload()
-  {
+
+  reload() {
     this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
       this.questions = [];
       this.completeQuestions = [];
@@ -57,52 +58,47 @@ export class ListPage implements OnInit {
     });
   }
 
-
-
-  async createQuestion()
-  {
-    let m = await this.modalCtlr.create({
+  async createQuestion() {
+    const m = await this.modalCtlr.create({
       component: EditQuestionComponent,
-      componentProps:{
-        'id': 0,
-        'isEdit': false,
-        'section': this.sectionId
+      componentProps: {
+        id: 0,
+        isEdit: false,
+        section: this.sectionId
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.reload();
     });
   }
 
-  async editQuestion(id:number)
-  {
-    let m = await this.modalCtlr.create({
+  async editQuestion(id: number) {
+    const m = await this.modalCtlr.create({
       component: EditQuestionComponent,
-      componentProps:{
-        'id': id,
-        'isEdit': true,
-        'section': this.sectionId
+      componentProps: {
+        id,
+        isEdit: true,
+        section: this.sectionId
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.reload();
     });
   }
 
 
-  async loadQuestion(id:number)
-  {
-    let m = await this.modalCtlr.create({
+  async loadQuestion(id: number) {
+    const m = await this.modalCtlr.create({
       component: DetailQuestionComponent,
-      componentProps:{
-        'id': id,
-        'parent':this
+      componentProps: {
+        id,
+        parent: this
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.reload();
     });
   }

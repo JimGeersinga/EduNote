@@ -10,8 +10,8 @@ import { User } from 'src/app/core/domains/user';
 })
 export class AccountPage implements OnInit {
 
-  public user : User;
-  public password : string;
+  public user: User;
+  public password: string;
 
   constructor(public userService: UserService, public toastController: ToastController) {
   }
@@ -24,7 +24,7 @@ export class AccountPage implements OnInit {
 
   async updatePassword() {
     this.userService.updatePassword(this.user.id, this.password).subscribe(async (user) => {
-      this.password = "";
+      this.password = '';
       const toast = await this.toastController.create({
         message: 'Uw wachtwoord is bijgewerkt',
         duration: 2000

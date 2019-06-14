@@ -57,6 +57,7 @@ export class AuthService {
     return this.http.post<AuthenticationToken>(`${environment.apiUrl}/users/authenticate`, { email, password })
       .pipe(
         tap(data => {
+          this.authenticated = data.token ? true : false;
           this.setToken(data);
         }),
         catchError(this.handleError('Login'))

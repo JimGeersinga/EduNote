@@ -14,11 +14,10 @@ import { ModalController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
-  public questions: Question[]; 
-  public notes: Note[]; 
+  public questions: Question[];
+  public notes: Note[];
 
-  constructor(public userService: UserService, private modalCtlr : ModalController, private navCtlr: NavController) 
-  {  
+  constructor(public userService: UserService, private modalCtlr: ModalController, private navCtlr: NavController) {
   }
 
   ngOnInit() {
@@ -28,19 +27,18 @@ export class HomePage implements OnInit {
   });
   }
 
-  async editQuestion(id:number)
-  {
-    let m = await this.modalCtlr.create({
+  async editQuestion(id: number) {
+    const m = await this.modalCtlr.create({
       component: EditQuestionComponent,
-      componentProps:{
-        'id': id,
-        'isEdit': true
+      componentProps: {
+        id,
+        isEdit: true
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.userService.getCurrent().subscribe((user) => {
-        let questions = user.questions;
+        const questions = user.questions;
         this.questions = [];
         questions.forEach(question => {
           this.questions.push(question);
@@ -50,19 +48,18 @@ export class HomePage implements OnInit {
     });
   }
 
-  async loadQuestion(id:number)
-  {
-    let m = await this.modalCtlr.create({
+  async loadQuestion(id: number) {
+    const m = await this.modalCtlr.create({
       component: DetailQuestionComponent,
-      componentProps:{
-        'id': id,
-        'parent':this
+      componentProps: {
+        id,
+        parent: this
       }
     });
     m.present();
-    m.onDidDismiss().then(()=>{
+    m.onDidDismiss().then(() => {
       this.userService.getCurrent().subscribe((user) => {
-        let questions = user.questions;
+        const questions = user.questions;
         this.questions = [];
         questions.forEach(question => {
           this.questions.push(question);
@@ -71,7 +68,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  loadAccount(){
+  loadAccount() {
     this.navCtlr.navigateForward(`account`);
   }
 }

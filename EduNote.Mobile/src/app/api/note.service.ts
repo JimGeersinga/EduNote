@@ -22,10 +22,10 @@ export class NoteService {
       );
   }
 
-  getNotesBySection(id: number): Observable<Note[]> {
-    return this.http.get<Note[]>(`${environment.apiUrl}/sections/${id}/notes`)
+  getNotesBySection(id: number, searchText: string = ''): Observable<Note[]> {
+    return this.http.get<Note[]>(`${environment.apiUrl}/sections/${id}/notes?search=${searchText}`)
       .pipe(
-        tap(_ => this.log('fetched notes ')),
+        tap(_ => this.log('fetched notes with searchfilter: ' + searchText)),
         catchError(this.handleError('getNotesBySection', null))
       );
   }

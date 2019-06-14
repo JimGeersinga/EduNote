@@ -12,63 +12,63 @@ import { User } from 'src/app/core/domains/user';
 })
 
 export class EditNoteComponent implements OnInit {
-  @Input() id:number;
-  @Input() section:number;
-  @Input() isEdit:boolean;
+  @Input() id: number;
+  @Input() section: number;
+  @Input() isEdit: boolean;
   noteService: NoteService;
   userService: UserService;
-  note:Note;
-  message:string;
-  user:User;
+  note: Note;
+  message: string;
+  user: User;
   constructor(
-    noteService:NoteService,
-    userService:UserService,
+    noteService: NoteService,
+    userService: UserService,
     public viewCtrl: ModalController
-  ) { 
+  ) {
     this.noteService = noteService;
     this.userService = userService;
     this.note = new Note();
   }
 
   async ngOnInit() {
-    await this.userService.getCurrent().subscribe(data=>{this.user = data});
-    if(this.id > 0){
-      await this.noteService.getNote(this.id).subscribe(data=>this.note = data);
+    await this.userService.getCurrent().subscribe(data => { this.user = data; });
+    if (this.id > 0) {
+      await this.noteService.getNote(this.id).subscribe(data => this.note = data);
       this.isEdit = true;
-  } else {
-    this.note = new Note();
+    } else {
+      this.note = new Note();
+    }
   }
-}
-  
 
-  async send(form){
+
+  async send(form) {
     console.log(this.user);
-    
-    if(this.isEdit){
-      await this.noteService.put(this.note).subscribe(data=>{
+
+    if (this.isEdit) {
+      await this.noteService.put(this.note).subscribe(data => {
         console.log('putted');
         this.viewCtrl.dismiss();
         console.log('Dismissed');
       },
-      error=>{
-        this.message = error.error.message
-      }
+        error => {
+          this.message = error.error.message;
+        }
       );
-    }else{
+    } else {
       this.note.sectionId = this.section;
       this.note.created = new Date(Date.now());
       this.note.id = 0;
       this.note.createdById = this.user.id;
       console.log(this.note);
-      let ctrl = this.viewCtrl;
-      await this.noteService.post(this.note).subscribe(data=>{
+      const ctrl = this.viewCtrl;
+      await this.noteService.post(this.note).subscribe(data => {
         console.log('posted');
         this.viewCtrl.dismiss();
         console.log('Dismissed');
       },
-      error=>{
-        this.message = error.error.message
-      });
+        error => {
+          this.message = error.error.message;
+        });
     }
 
   }

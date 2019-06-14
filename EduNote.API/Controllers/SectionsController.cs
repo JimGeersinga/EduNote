@@ -3,7 +3,6 @@ using EduNote.API.EF.Interfaces;
 using EduNote.API.EF.Models;
 using EduNote.API.Helpers;
 using EduNote.API.Shared.ApiModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
@@ -62,7 +61,8 @@ namespace EduNote.API.Controllers
             try
             {
                 Section item = _dataService.GetById<Section>(id, x => x.Sections, x => x.Questions, x => x.Notes);
-                item.Questions.ToList().ForEach(x => {
+                item.Questions.ToList().ForEach(x =>
+                {
                     x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
                 });
                 return StatusCode(200, Mapper.Map<SectionDetailDTO>(item));
@@ -74,16 +74,21 @@ namespace EduNote.API.Controllers
         }
 
         [HttpGet("{id}/questions")]
-        public IActionResult GetSectionQuestions(long id)
+        public IActionResult GetSectionQuestions(long id, string search = null, bool selfOnly = false)
         {
             try
             {
-                IEnumerable<Question> item = _dataService.Get<Question>(x => x.SectionId == id, includes:x=> x.Answers);
-                item.ToList().ForEach(x => {
+                User user = GetAuthenticatedUser();
+                IEnumerable<Question> items = _dataService.Get<Question>(x =>
+                    x.SectionId == id &&
+                    (!selfOnly || x.CreatedById == user.Id) &&
+                    (string.IsNullOrWhiteSpace(search) || x.Title.ToLower().Contains(search.ToLower())), includes: x => x.Answers);
+
+                items.ToList().ForEach(x =>
+                {
                     x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
                 });
-                var items = Mapper.Map<List<QuestionDetailDTO>>(item);
-                return StatusCode(200,items);
+                return StatusCode(200, Mapper.Map<List<QuestionDetailDTO>>(items));
             }
             catch (Exception e)
             {
@@ -92,15 +97,21 @@ namespace EduNote.API.Controllers
         }
 
         [HttpGet("{id}/notes")]
-        public IActionResult GetSectionNotes(long id)
+        public IActionResult GetSectionNotes(long id, string search = null, bool selfOnly = false)
         {
             try
             {
-                IEnumerable<Note> item = _dataService.Get<Note>(x => x.SectionId == id);
-                item.ToList().ForEach(x => {
+                User user = GetAuthenticatedUser();
+                IEnumerable<Note> items = _dataService.Get<Note>(x =>
+                    x.SectionId == id &&
+                    (!selfOnly || x.CreatedById == user.Id) &&
+                    (string.IsNullOrWhiteSpace(search) || x.Title.ToLower().Contains(search.ToLower())));
+
+                items.ToList().ForEach(x =>
+                {
                     x.CreatedBy = _dataService.Get<User>(z => z.Id == x.CreatedById).FirstOrDefault();
                 });
-                return StatusCode(200, Mapper.Map<List<NoteDTO>>(item));
+                return StatusCode(200, Mapper.Map<List<NoteDTO>>(items));
             }
             catch (Exception e)
             {
