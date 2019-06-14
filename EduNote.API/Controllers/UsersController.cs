@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Linq;
 
 namespace EduNote.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace EduNote.API.Controllers
         {
             try
             {
-                User item = _dataService.GetById<User>(Convert.ToInt64(User.Identity.Name), x => x.QuestionsCreated, x => x.NotesCreated, x => x.AnswersCreated, x => x.UserGroups);
+                User item = _dataService.GetFirst<User>(x => x.Email == User.Identity.Name, x => x.QuestionsCreated, x => x.NotesCreated, x => x.AnswersCreated, x => x.UserGroups);
 
                 return StatusCode(200, Mapper.Map<UserDetailDTO>(item));
             }
@@ -57,7 +58,12 @@ namespace EduNote.API.Controllers
                     return BadRequest(new { message = "Email or password is incorrect" });
                 }
 
-                return Ok(new { token = user.Token });
+                return Ok(new
+                {
+                    token = user.Token,
+                    expirationTime = DateTime.UtcNow.AddDays(7),
+                    refreshToken = user.RefreshToken
+                });
             }
             catch (Exception e)
             {
@@ -71,22 +77,22 @@ namespace EduNote.API.Controllers
         {
             try
             {
-                var principal = _userService.GetPrincipalFromExpiredToken(token);
-                var username = principal.Identity.Name;
-                var savedRefreshToken = _userService.GetRefreshToken(username); //retrieve the refresh token from a data store
+                System.Security.Claims.ClaimsPrincipal principal = _userService.GetPrincipalFromExpiredToken(token);
+                string email = principal.Identity.Name;
+                string savedRefreshToken = _userService.GetRefreshToken(email); //retrieve the refresh token from a data store
                 if (savedRefreshToken != refreshToken)
                 {
                     throw new SecurityTokenException("Invalid refresh token");
                 }
 
-                var newJwtToken = _userService.GenerateToken(principal.Claims);
-                var newRefreshToken = _userService.GenerateRefreshToken();
-                DeleteRefreshToken(username, refreshToken);
-                SaveRefreshToken(username, newRefreshToken);
+                string newJwtToken = _userService.GenerateToken(principal.Claims);
+                string newRefreshToken = _userService.GenerateRefreshToken();
+                _userService.UpdateRefreshToken(email, newRefreshToken);
 
-                return new ObjectResult(new
+                return Ok(new
                 {
                     token = newJwtToken,
+                    expirationTime = DateTime.UtcNow.AddDays(7),
                     refreshToken = newRefreshToken
                 });
             }

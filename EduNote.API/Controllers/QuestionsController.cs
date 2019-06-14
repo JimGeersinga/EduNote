@@ -6,7 +6,7 @@ using EduNote.API.Shared.ApiModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
-
+using System.Collections.Generic;
 
 namespace EduNote.API.Controllers
 {
@@ -21,6 +21,24 @@ namespace EduNote.API.Controllers
         {
             _dataService = dataService;
             _appSettings = appSettings.Value;
+        }
+
+        [HttpGet]
+        public IActionResult Get(string search, bool selfOnly)
+        {
+            try
+            {
+                User user = GetAuthenticatedUser();
+                IEnumerable<Question> items = _dataService.Get<Question>(x =>
+                    (!selfOnly || x.CreatedById == user.Id) &&
+                    (string.IsNullOrWhiteSpace(search) || x.Title == search));
+
+                return Ok(Mapper.Map<List<QuestionListDTO>>(items));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e);
+            }
         }
 
         [HttpGet("{id}")]
