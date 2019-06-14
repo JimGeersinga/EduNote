@@ -9,5 +9,5 @@ export class Question {
     createdById: number;
     creatorName: string;
     answers:Answer[];
-    hasAnswers:boolean = this.answers.length > 0;
+    hasAnswers:boolean = this.answers != null && this.answers.length > 0;
 }

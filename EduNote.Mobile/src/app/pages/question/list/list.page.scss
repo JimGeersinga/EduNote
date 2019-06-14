@@ -1,3 +1,15 @@
 .answered{
     color:green;
 }
+.toggle{
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translate(-50%, -50%);
+}
+.toggle-label{
+    position:absolute;
+    right:0;
+    top:50%;
+    transform:translate(-160%, -50%);
+}

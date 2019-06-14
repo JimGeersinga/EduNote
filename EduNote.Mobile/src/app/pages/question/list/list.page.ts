@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { EditQuestionComponent } from '../edit/edit-question/edit-question.component';
 import { DetailQuestionComponent } from '../detail/detail-question.page';
 import { ResourceLoader } from '@angular/compiler';
+import { UserService } from 'src/app/api/user.service';
+import { User } from 'src/app/core/domains/user';
 
 @Component({
   selector: 'app-list',
@@ -14,27 +16,44 @@ import { ResourceLoader } from '@angular/compiler';
 })
 export class ListPage implements OnInit {
   public questions: Question[];
+  public completeQuestions: Question[];
+  onlyOwn:boolean;
   sectionId:number;
+  search:string = '';
+  currentUser:User;
   constructor(
     private activatedRoute: ActivatedRoute,
     private questionService: QuestionService,
+    private userService: UserService,
     private modalCtlr: ModalController  
     ) { }
-  ngOnInit() {
+  async ngOnInit() {
     const sectionId = +this.activatedRoute.snapshot.parent.parent.paramMap.get('sectionId');
     this.sectionId = sectionId;
+    await this.userService.getCurrent().subscribe(user=>{
+      this.currentUser =user;
+    });
     this.reload();
   }
-
+  onChange()
+  {
+    if(this.search.length == 0)
+    {
+      this.questions = this.completeQuestions.filter(x=>x.createdById == this.currentUser.id || !this.onlyOwn);
+    }else{
+      this.questions = this.completeQuestions.filter(x=>(x.createdById == this.currentUser.id || !this.onlyOwn) && (x.title.toLowerCase().includes(this.search.toLowerCase()) || x.creatorName.toLowerCase().includes(this.search.toLowerCase())));
+    }
+  }
   reload()
   {
     this.questionService.getQuestionsBySection(this.sectionId).subscribe((questions) => {
       this.questions = [];
+      this.completeQuestions = [];
       questions.forEach(question => {
-        question.hasAnswers = question.answers.length > 0;
+        question.hasAnswers = question.answers != null && question.answers.length > 0;
         this.questions.push(question);
+        this.completeQuestions.push(question);
       });
-      console.log('questions pushed');
     });
   }
 

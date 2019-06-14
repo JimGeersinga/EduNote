@@ -3,11 +3,18 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Vragen</ion-title>
+    <ion-title>Vragen
+        <ion-label class="toggle-label">Eigen</ion-label>
+        <ion-toggle class="toggle" [(ngModel)]="onlyOwn" (ionChange)=onChange()></ion-toggle>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-item>
+        <ion-label position="floating">Zoeken</ion-label>
+        <ion-input (keyup)=onChange() [(ngModel)]="search"></ion-input>
+      </ion-item>
   <ion-list>
     <ion-item *ngFor="let question of questions"  (click)="loadQuestion(question.id)" >
       <ion-label [class.answered]="question.hasAnswers">{{question.title}} <small>{{question.creatorName}} {{question.created | date : 'HH:mm dd-MM-yyyy'}}</small></ion-label>
