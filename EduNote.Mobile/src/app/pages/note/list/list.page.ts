@@ -47,7 +47,7 @@ export class ListPage implements OnInit {
     });
   }
 
-  onSearchCancel() {
+  onSearchCancel(ev: any) {
     this.searchText = '';
     this.noteService.getNotesBySection(this.sectionId, this.searchText).subscribe((notes) => {
       this.notes = notes;
